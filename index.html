@@ -175,7 +175,7 @@ a { color: inherit; text-decoration: none; }
 .section-count {
   font-family: 'JetBrains Mono'; font-size: 11.5px; color: var(--sub);
 }
-/* Sub filters (Sellados / Semi Nuevos) */
+/* Sub filters (Sellados / Tester) */
 .sub-filters { display: flex; gap: 8px; margin-bottom: 26px; flex-wrap: wrap; }
 .sub-chip {
   padding: 7px 14px; border-radius: 999px;
@@ -439,7 +439,7 @@ footer a:hover { color: var(--amber); }
 <section class="hero">
   <p class="hero-tag">✦ Lista de precios actualizada</p>
   <h1>iPhones y accesorios<br><em>al mejor precio</em>.</h1>
-  <p class="hero-sub">Selllados y semi nuevos con garantía. Precios en dólares y pesos según cotización blue del día.</p>
+  <p class="hero-sub">Selllados y Tester con garantía. Precios en dólares y pesos según cotización blue del día.</p>
 </section>
 
 <!-- FILTERS -->
@@ -462,7 +462,7 @@ footer a:hover { color: var(--amber); }
     <div class="sub-filters">
       <button class="sub-chip active" data-sub="todos">Todos</button>
       <button class="sub-chip" data-sub="sellado">Sellados</button>
-      <button class="sub-chip" data-sub="semi">Semi Nuevos</button>
+      <button class="sub-chip" data-sub="Tester">Tester</button>
     </div>
   </div>
 </div>
@@ -536,7 +536,7 @@ footer a:hover { color: var(--amber); }
         <br>
         <b>Columnas requeridas (en este orden):</b><br>
         Categoría · Nombre · Detalle · Estado · Precio USD · Stock<br>
-        <i>Categoría: "iPhone Sellado" / "iPhone Semi Nuevo" / "Accesorio"</i><br>
+        <i>Categoría: "iPhone Sellado" / "iPhone Tester" / "Accesorio"</i><br>
         <i>Stock: "Sí" o "No"</i>
       </div>
       <button class="btn-primary" id="saveSheetBtn">Guardar URL y recargar precios</button>
@@ -607,15 +607,14 @@ const DEMO_DATA = [
   {cat:'iPhone Sellado',  nombre:'iPhone 14 Pro',        detalle:'256GB',   estado:'Nuevo Sellado',   precio:820,  stock:false},
   {cat:'iPhone Sellado',  nombre:'iPhone 14',            detalle:'128GB',   estado:'Nuevo Sellado',   precio:620,  stock:true},
   {cat:'iPhone Sellado',  nombre:'iPhone 13',            detalle:'128GB',   estado:'Nuevo Sellado',   precio:510,  stock:true},
-  {cat:'iPhone Semi Nuevo',nombre:'iPhone 13 Pro',       detalle:'256GB',   estado:'Excelente estado',precio:550,  stock:true},
-  {cat:'iPhone Semi Nuevo',nombre:'iPhone 12',           detalle:'128GB',   estado:'Buen estado',     precio:350,  stock:true},
-  {cat:'iPhone Semi Nuevo',nombre:'iPhone 11',           detalle:'64GB',    estado:'Buen estado',     precio:270,  stock:true},
+  {cat:'iPhone Tester',   nombre:'iPhone 13 Pro',       detalle:'256GB',   estado:'Excelente estado',precio:550,  stock:true},
+  {cat:'iPhone Tester',   nombre:'iPhone 12',           detalle:'128GB',   estado:'Buen estado',     precio:350,  stock:true},
+  {cat:'iPhone Tester',   nombre:'iPhone 11',           detalle:'64GB',    estado:'Buen estado',     precio:270,  stock:true},
   {cat:'Accesorio',        nombre:'Adaptador USB-C',     detalle:'Original',estado:'Nuevo',           precio:22,   stock:true},
   {cat:'Accesorio',        nombre:'Adaptador USB-C',     detalle:'Réplica', estado:'Nuevo',           precio:8,    stock:true},
   {cat:'Accesorio',        nombre:'Auriculares EarPods', detalle:'USB-C',   estado:'Nuevo',           precio:18,   stock:true},
   {cat:'Accesorio',        nombre:'Cable USB-C',         detalle:'1 metro', estado:'Nuevo',           precio:12,   stock:true},
   {cat:'Accesorio',        nombre:'Templado',            detalle:'iPhone 15 Pro',estado:'Nuevo',      precio:9,    stock:true},
-  {cat:'Accesorio',        nombre:'Templado',            detalle:'iPhone 14',    estado:'Nuevo',      precio:7,    stock:true},
 ];
 
 // ── DOLAR BLUE ──
@@ -720,7 +719,7 @@ function getFilteredItems() {
     const subMatch =
       activeSub === 'todos' ||
       (activeSub === 'sellado' && catNorm.includes('sellado')) ||
-      (activeSub === 'semi'    && catNorm.includes('semi'));
+      (activeSub === 'tester'    && catNorm.includes('tester'));
     const qMatch = !q ||
       item.nombre.toLowerCase().includes(q) ||
       item.detalle.toLowerCase().includes(q) ||
@@ -738,7 +737,7 @@ function getBadge(item) {
   const c = item.cat.toLowerCase();
   if (!item.stock) return `<span class="badge badge-nostock">Sin stock</span>`;
   if (c.includes('sellado')) return `<span class="badge badge-new">Sellado</span>`;
-  if (c.includes('semi'))    return `<span class="badge badge-used">Semi Nuevo</span>`;
+  if (c.includes('tester'))    return `<span class="badge badge-tester">Tester</span>`;
   return `<span class="badge badge-acc">Accesorio</span>`;
 }
 
@@ -911,7 +910,7 @@ function renderAdminTable() {
     tr.innerHTML = `
       <td>
         <select data-f="cat">
-          ${['iPhone Sellado','iPhone Semi Nuevo','Accesorio'].map(o =>
+          ${['iPhone Sellado','iPhone Tester','Accesorio'].map(o =>
             `<option${item.cat === o ? ' selected' : ''}>${o}</option>`).join('')}
         </select>
       </td>
