@@ -589,12 +589,7 @@ Accesorio,Cable USB-C,Original Apple,—,18,Sí"></textarea>
 const WA_NUMBER = '5491169724846';
 const STORAGE_KEY = 'pm_catalog_v1';
 const SHEET_URL_KEY = 'pm_sheet_url';
-const ADMIN_PASS = 'puertomovil2025';
-
-// URL de Google Sheets embebida directamente en el código.
-// Todos los visitantes cargan datos desde acá al entrar a la página.
-// Para cambiarla en el futuro: editá esta línea y volvé a subir el HTML a GitHub.
-const DEFAULT_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT0jamwWtdX65SQOQrj9Bi1a2h3geYAKmbCW2YSUEcnLkPPGGMGnqZPSNbor-kJX2-w8RQx8onvDRRY/pub?gid=0&single=true&output=csv'; // Cambiar acá
+const ADMIN_PASS = 'puertomovil2025'; // Cambiar acá
 
 // ── STATE ──
 let catalog = [];
@@ -704,33 +699,25 @@ function renderSubFilters() {
 
 
 async function loadCatalog() {
-  // 1. Prioridad: URL embebida en el código (o una sobreescritura guardada desde el panel)
-  const overrideUrl = localStorage.getItem(SHEET_URL_KEY);
-  const sheetUrl = fixSheetsUrl(overrideUrl || DEFAULT_SHEET_URL);
-
-  try {
-    const r = await fetch(sheetUrl + '&ts=' + Date.now());
-    if (r.ok) {
-      const text = await r.text();
-      if (!text.trim().startsWith('<')) { // No es HTML
+  // Try Google Sheets first
+  const rawUrl = localStorage.getItem(SHEET_URL_KEY);
+  if (rawUrl) {
+    const sheetUrl = fixSheetsUrl(rawUrl);
+    try {
+      const r = await fetch(sheetUrl + (sheetUrl.includes('?') ? '&ts=' : '?ts=') + Date.now());
+      if (r.ok) {
+        const text = await r.text();
         const parsed = parseCSV(text);
-        if (parsed.length) {
-          catalog = parsed;
-          renderSubFilters();
-          renderGrid();
-          return;
-        }
+        if (parsed.length) { catalog = parsed; renderSubFilters(); renderGrid(); return; }
       }
-    }
-  } catch {}
-
-  // 2. Fallback: datos guardados localmente desde el panel manual/CSV
+    } catch {}
+  }
+  // Try local storage
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) { catalog = JSON.parse(saved); renderSubFilters(); renderGrid(); return; }
   } catch {}
-
-  // 3. Último recurso: demo data
+  // Demo data
   catalog = DEMO_DATA;
   renderSubFilters();
   renderGrid();
