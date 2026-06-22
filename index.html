@@ -175,7 +175,7 @@ a { color: inherit; text-decoration: none; }
 .section-count {
   font-family: 'JetBrains Mono'; font-size: 11.5px; color: var(--sub);
 }
-/* Sub filters (Sellados / Tester) */
+/* Sub filters (Sellados / Semi Nuevos) */
 .sub-filters { display: flex; gap: 8px; margin-bottom: 26px; flex-wrap: wrap; }
 .sub-chip {
   padding: 7px 14px; border-radius: 999px;
@@ -439,7 +439,7 @@ footer a:hover { color: var(--amber); }
 <section class="hero">
   <p class="hero-tag">✦ Lista de precios actualizada</p>
   <h1>iPhones y accesorios<br><em>al mejor precio</em>.</h1>
-  <p class="hero-sub">Selllados y Tester con garantía. Precios en dólares y pesos según cotización blue del día.</p>
+  <p class="hero-sub">Sellados, semi nuevos y tester con garantía. Precios en dólares y pesos según cotización blue del día.</p>
 </section>
 
 <!-- FILTERS -->
@@ -459,10 +459,8 @@ footer a:hover { color: var(--amber); }
 <!-- SUB FILTERS (iPhones only) -->
 <div id="subFiltersWrap" style="background:var(--bg); border-bottom:1px solid var(--border); display:none;">
   <div style="max-width:1280px; margin:0 auto; padding:10px 5vw;">
-    <div class="sub-filters">
-      <button class="sub-chip active" data-sub="todos">Todos</button>
-      <button class="sub-chip" data-sub="sellado">Sellados</button>
-      <button class="sub-chip" data-sub="tester">Tester</button>
+    <div class="sub-filters" id="subFiltersContainer">
+      <!-- Se generan dinámicamente según el catálogo -->
     </div>
   </div>
 </div>
@@ -536,7 +534,7 @@ footer a:hover { color: var(--amber); }
         <br>
         <b>Columnas requeridas (en este orden):</b><br>
         Categoría · Nombre · Detalle · Estado · Precio USD · Stock<br>
-        <i>Categoría: "iPhone Sellado" / "iPhone Tester" / "Accesorio"</i><br>
+        <i>Categoría: puede ser cualquier nombre. Si contiene la palabra "iphone" aparece en la pestaña iPhones. Si contiene "accesorio" en la pestaña Accesorios. Ejemplo: "iPhone Tester", "iPhone Sellado", "iPhone Semi Nuevo", "Accesorio".</i><br>
         <i>Stock: "Sí" o "No"</i>
       </div>
       <button class="btn-primary" id="saveSheetBtn">Guardar URL y recargar precios</button>
@@ -607,17 +605,34 @@ const DEMO_DATA = [
   {cat:'iPhone Sellado',  nombre:'iPhone 14 Pro',        detalle:'256GB',   estado:'Nuevo Sellado',   precio:820,  stock:false},
   {cat:'iPhone Sellado',  nombre:'iPhone 14',            detalle:'128GB',   estado:'Nuevo Sellado',   precio:620,  stock:true},
   {cat:'iPhone Sellado',  nombre:'iPhone 13',            detalle:'128GB',   estado:'Nuevo Sellado',   precio:510,  stock:true},
-  {cat:'iPhone Tester',   nombre:'iPhone 13 Pro',       detalle:'256GB',   estado:'Excelente estado',precio:550,  stock:true},
-  {cat:'iPhone Tester',   nombre:'iPhone 12',           detalle:'128GB',   estado:'Buen estado',     precio:350,  stock:true},
-  {cat:'iPhone Tester',   nombre:'iPhone 11',           detalle:'64GB',    estado:'Buen estado',     precio:270,  stock:true},
+  {cat:'iPhone Semi Nuevo',nombre:'iPhone 13 Pro',       detalle:'256GB',   estado:'Excelente estado',precio:550,  stock:true},
+  {cat:'iPhone Semi Nuevo',nombre:'iPhone 12',           detalle:'128GB',   estado:'Buen estado',     precio:350,  stock:true},
+  {cat:'iPhone Semi Nuevo',nombre:'iPhone 11',           detalle:'64GB',    estado:'Buen estado',     precio:270,  stock:true},
   {cat:'Accesorio',        nombre:'Adaptador USB-C',     detalle:'Original',estado:'Nuevo',           precio:22,   stock:true},
   {cat:'Accesorio',        nombre:'Adaptador USB-C',     detalle:'Réplica', estado:'Nuevo',           precio:8,    stock:true},
   {cat:'Accesorio',        nombre:'Auriculares EarPods', detalle:'USB-C',   estado:'Nuevo',           precio:18,   stock:true},
   {cat:'Accesorio',        nombre:'Cable USB-C',         detalle:'1 metro', estado:'Nuevo',           precio:12,   stock:true},
   {cat:'Accesorio',        nombre:'Templado',            detalle:'iPhone 15 Pro',estado:'Nuevo',      precio:9,    stock:true},
+  {cat:'Accesorio',        nombre:'Templado',            detalle:'iPhone 14',    estado:'Nuevo',      precio:7,    stock:true},
 ];
 
-// ── DOLAR BLUE ──
+// ── FIX SHEETS URL ──
+// Convierte cualquier URL de Google Sheets a la URL de exportación CSV correcta
+function fixSheetsUrl(url) {
+  if (!url) return url;
+  // Ya es URL de CSV → no tocar
+  if (url.includes('output=csv') || url.includes('format=csv')) return url;
+  // Extraer el ID de la planilla
+  const idMatch = url.match(/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
+  if (!idMatch) return url; // URL desconocida, devolver tal cual
+  const id = idMatch[1];
+  const gidMatch = url.match(/gid=(\d+)/);
+  const gid = gidMatch ? gidMatch[1] : '0';
+  // Usar endpoint de exportación (más confiable que /pub)
+  return `https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}`;
+}
+
+
 async function fetchDolar() {
   const APIs = [
     'https://dolarapi.com/v1/dolares/blue',
@@ -654,27 +669,57 @@ function fmtARS(n) {
   return n.toLocaleString('es-AR');
 }
 
-// ── CATALOG LOAD ──
+// ── SUB FILTERS DINÁMICOS ──
+function renderSubFilters() {
+  const container = document.getElementById('subFiltersContainer');
+  if (!container) return;
+  // Obtener sub-categorías únicas de iPhones
+  const iphoneCats = [...new Set(
+    catalog
+      .filter(i => i.cat.toLowerCase().includes('iphone'))
+      .map(i => i.cat)
+  )];
+  let html = `<button class="sub-chip active" data-sub="todos">Todos</button>`;
+  iphoneCats.forEach(cat => {
+    // Usar la última palabra como etiqueta corta (ej: "iPhone Tester" → "Tester")
+    const label = cat.replace(/iphone\s*/i, '').trim() || cat;
+    html += `<button class="sub-chip" data-sub="${cat.toLowerCase()}">${label || cat}</button>`;
+  });
+  container.innerHTML = html;
+  // Re-bindear eventos
+  container.querySelectorAll('.sub-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      container.querySelectorAll('.sub-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeSub = chip.dataset.sub;
+      renderGrid();
+    });
+  });
+}
+
+
 async function loadCatalog() {
   // Try Google Sheets first
-  const sheetUrl = localStorage.getItem(SHEET_URL_KEY);
-  if (sheetUrl) {
+  const rawUrl = localStorage.getItem(SHEET_URL_KEY);
+  if (rawUrl) {
+    const sheetUrl = fixSheetsUrl(rawUrl);
     try {
       const r = await fetch(sheetUrl + (sheetUrl.includes('?') ? '&ts=' : '?ts=') + Date.now());
       if (r.ok) {
         const text = await r.text();
         const parsed = parseCSV(text);
-        if (parsed.length) { catalog = parsed; renderGrid(); return; }
+        if (parsed.length) { catalog = parsed; renderSubFilters(); renderGrid(); return; }
       }
     } catch {}
   }
   // Try local storage
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) { catalog = JSON.parse(saved); renderGrid(); return; }
+    if (saved) { catalog = JSON.parse(saved); renderSubFilters(); renderGrid(); return; }
   } catch {}
   // Demo data
   catalog = DEMO_DATA;
+  renderSubFilters();
   renderGrid();
 }
 
@@ -716,10 +761,10 @@ function getFilteredItems() {
       activeCat === 'todos' ||
       (activeCat === 'iphone'    && catNorm.includes('iphone')) ||
       (activeCat === 'accesorio' && catNorm.includes('accesorio'));
+    // Sub-filtro: "todos" muestra todo, o coincide con el nombre completo de categoría
     const subMatch =
       activeSub === 'todos' ||
-      (activeSub === 'sellado' && catNorm.includes('sellado')) ||
-      (activeSub === 'tester'    && catNorm.includes('tester'));
+      catNorm === activeSub;
     const qMatch = !q ||
       item.nombre.toLowerCase().includes(q) ||
       item.detalle.toLowerCase().includes(q) ||
@@ -736,9 +781,16 @@ function getWALink(nombre, detalle) {
 function getBadge(item) {
   const c = item.cat.toLowerCase();
   if (!item.stock) return `<span class="badge badge-nostock">Sin stock</span>`;
-  if (c.includes('sellado')) return `<span class="badge badge-new">Sellado</span>`;
-  if (c.includes('tester'))    return `<span class="badge badge-tester">Tester</span>`;
-  return `<span class="badge badge-acc">Accesorio</span>`;
+  if (!c.includes('iphone') && !c.includes('accesorio')) {
+    // Categoría desconocida: mostrar tal cual
+    return `<span class="badge badge-used">${item.cat}</span>`;
+  }
+  if (c.includes('accesorio')) return `<span class="badge badge-acc">Accesorio</span>`;
+  // iPhone: mostrar el sub-tipo (todo lo que viene después de "iphone")
+  const sub = item.cat.replace(/iphone\s*/i, '').trim();
+  if (!sub) return `<span class="badge badge-new">iPhone</span>`;
+  if (c.includes('sellado')) return `<span class="badge badge-new">${sub}</span>`;
+  return `<span class="badge badge-used">${sub}</span>`;
 }
 
 function renderCard(item) {
@@ -800,21 +852,18 @@ document.querySelectorAll('.cat-tab').forEach(btn => {
     btn.classList.add('active');
     activeCat = btn.dataset.cat;
     activeSub = 'todos';
-    document.querySelectorAll('.sub-chip').forEach(c => c.classList.toggle('active', c.dataset.sub === 'todos'));
+    // Resetear sub-chip activo al "Todos"
+    const subContainer = document.getElementById('subFiltersContainer');
+    if (subContainer) {
+      subContainer.querySelectorAll('.sub-chip').forEach(c => c.classList.toggle('active', c.dataset.sub === 'todos'));
+    }
     const wrap = document.getElementById('subFiltersWrap');
     wrap.style.display = activeCat === 'iphone' ? 'block' : 'none';
     renderGrid();
   });
 });
 
-document.querySelectorAll('.sub-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    document.querySelectorAll('.sub-chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    activeSub = chip.dataset.sub;
-    renderGrid();
-  });
-});
+// Sub-chip listeners are bound dynamically in renderSubFilters()
 
 document.getElementById('searchInput').addEventListener('input', renderGrid);
 
@@ -876,27 +925,34 @@ document.querySelectorAll('.modal-tab').forEach(tab => {
 
 // ── GOOGLE SHEETS ──
 document.getElementById('saveSheetBtn').addEventListener('click', async () => {
-  const url = document.getElementById('sheetsUrl').value.trim();
+  const rawUrl = document.getElementById('sheetsUrl').value.trim();
   const okEl  = document.getElementById('sheetOk');
   const errEl = document.getElementById('sheetErr');
   okEl.style.display = errEl.style.display = 'none';
-  if (!url) { errEl.textContent = 'Ingresá una URL.'; errEl.style.display = 'block'; return; }
+  if (!rawUrl) { errEl.textContent = 'Ingresá una URL.'; errEl.style.display = 'block'; return; }
+
+  const url = fixSheetsUrl(rawUrl); // ← auto-corregir URL
   try {
     const r = await fetch(url + (url.includes('?') ? '&ts=' : '?ts=') + Date.now());
-    if (!r.ok) throw new Error();
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const text = await r.text();
+    // Detectar si nos devolvieron HTML en lugar de CSV
+    if (text.trim().startsWith('<!') || text.trim().startsWith('<html')) {
+      throw new Error('La URL devuelve HTML, no CSV. Revisá los pasos de publicación.');
+    }
     const parsed = parseCSV(text);
-    if (!parsed.length) throw new Error('Sin datos');
-    localStorage.setItem(SHEET_URL_KEY, url);
+    if (!parsed.length) throw new Error('Sin datos válidos');
+    localStorage.setItem(SHEET_URL_KEY, rawUrl); // guardar URL original
     catalog = parsed;
     saveCatalog();
+    renderSubFilters();
     okEl.style.display = 'block';
     setTimeout(() => {
       document.getElementById('adminOverlay').classList.remove('open');
       renderGrid();
     }, 1200);
-  } catch {
-    errEl.textContent = 'No se pudo cargar la planilla. Verificá que la URL sea correcta y esté publicada como CSV.';
+  } catch (e) {
+    errEl.textContent = `No se pudo cargar la planilla. ${e.message || ''}. Verificá que esté publicada como CSV (Archivo → Compartir → Publicar en la web → CSV).`;
     errEl.style.display = 'block';
   }
 });
@@ -909,10 +965,7 @@ function renderAdminTable() {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>
-        <select data-f="cat">
-          ${['iPhone Sellado','iPhone Tester','Accesorio'].map(o =>
-            `<option${item.cat === o ? ' selected' : ''}>${o}</option>`).join('')}
-        </select>
+        <input data-f="cat" value="${esc(item.cat)}" placeholder="ej: iPhone Tester">
       </td>
       <td><input data-f="nombre" value="${esc(item.nombre)}"></td>
       <td><input data-f="detalle" value="${esc(item.detalle)}"></td>
@@ -960,6 +1013,7 @@ document.getElementById('saveManualBtn').addEventListener('click', () => {
   });
   catalog = newCat;
   saveCatalog();
+  renderSubFilters();
   renderGrid();
   const ok = document.getElementById('manualOk');
   ok.style.display = 'block';
@@ -977,6 +1031,7 @@ document.getElementById('importCsvBtn').addEventListener('click', () => {
   if (!parsed.length) { err.textContent = 'No se pudo interpretar el formato.'; err.style.display = 'block'; return; }
   catalog = parsed;
   saveCatalog();
+  renderSubFilters();
   renderGrid();
   renderAdminTable();
   ok.style.display = 'block';
