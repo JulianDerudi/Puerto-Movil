@@ -3,1063 +3,1014 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Puerto Móvil — Catálogo de Precios</title>
+<title>Puerto Móvil — Tu celular de confianza</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:      #0C0B09;
-  --surf:    #141210;
-  --card:    #1C1915;
-  --card-hov:#211F1B;
-  --border:  rgba(237,232,222,0.09);
-  --text:    #EDE8DE;
-  --sub:     #8C8278;
-  --amber:   #E8A23C;
-  --amber-dim:rgba(232,162,60,0.15);
-  --green:   #25D366;
-  --green-dark:#1a9e4d;
-  --red:     #E85C3C;
-  --radius:  12px;
+:root{
+  --y:#FFD600;
+  --yd:#E5C400;
+  --bk:#0D0D0D;
+  --br:#3D1810;
+  --wh:#FFFFFF;
+  --bg:#F4F4F4;
+  --card:#FFFFFF;
+  --sub:#6B6B6B;
+  --border:#E0E0E0;
+  --green:#25D366;
+  --greend:#1aa350;
+  --r:10px;
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Inter', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
-}
-::selection { background: var(--amber); color: #0C0B09; }
-a { color: inherit; text-decoration: none; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--bk);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+::selection{background:var(--y);color:var(--bk)}
+img{display:block;max-width:100%}
+button{cursor:pointer;font-family:'Inter',sans-serif}
+a{color:inherit;text-decoration:none}
 
-/* ── HEADER ── */
-.site-header {
-  position: sticky; top: 0; z-index: 50;
-  background: rgba(12,11,9,0.88);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border);
+/* ─── HEADER ─── */
+.header{
+  background:var(--bk);
+  position:sticky;top:0;z-index:100;
+  border-bottom:3px solid var(--y);
 }
-.header-inner {
-  max-width: 1280px; margin: 0 auto;
-  padding: 0 5vw;
-  height: 64px;
-  display: flex; align-items: center; justify-content: space-between; gap: 20px;
-}
-.logo {
-  font-family: 'DM Serif Display', serif;
-  font-size: 20px; letter-spacing: -0.3px;
-  display: flex; align-items: center; gap: 10px;
-  flex-shrink: 0;
-}
-.logo-icon {
-  width: 32px; height: 32px;
-  background: var(--amber);
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px;
-}
-.logo-sub { font-size: 10px; font-family: 'Inter'; color: var(--sub); letter-spacing: 2px; text-transform: uppercase; }
-
-/* Dolar ticker */
-.dolar-ticker {
-  background: var(--surf);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 14px;
-  display: flex; align-items: center; gap: 10px;
-  flex-shrink: 0;
-}
-.ticker-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 8px var(--green);
-  animation: pulse 2.5s infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-.ticker-label {
-  font-family: 'JetBrains Mono'; font-size: 10px;
-  color: var(--sub); text-transform: uppercase; letter-spacing: 1.5px;
-}
-.ticker-val {
-  font-family: 'JetBrains Mono'; font-size: 14px; font-weight: 700;
-  color: var(--amber);
-}
-.ticker-date { font-family: 'JetBrains Mono'; font-size: 10px; color: var(--sub); }
-
-/* Admin trigger */
-.admin-trigger {
-  background: none; border: 1px solid var(--border);
-  color: var(--sub); font-size: 12px; font-family: 'Inter';
-  padding: 7px 12px; border-radius: 7px; cursor: pointer;
-  transition: .15s; flex-shrink: 0;
-  display: flex; align-items: center; gap: 6px;
-}
-.admin-trigger:hover { border-color: var(--amber); color: var(--amber); }
-
-/* ── HERO ── */
-.hero {
-  max-width: 1280px; margin: 0 auto;
-  padding: 7vh 5vw 5vh;
-  border-bottom: 1px solid var(--border);
-}
-.hero-tag {
-  font-family: 'JetBrains Mono'; font-size: 11px;
-  letter-spacing: 2.5px; text-transform: uppercase;
-  color: var(--amber); margin-bottom: 16px;
-}
-.hero h1 {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(32px, 5.5vw, 58px);
-  line-height: 1.07; font-weight: 400;
-  max-width: 700px;
-}
-.hero h1 em { font-style: italic; color: var(--amber); }
-.hero-sub {
-  margin-top: 16px; color: var(--sub);
-  font-size: 15.5px; line-height: 1.65;
-  max-width: 500px;
+.header-inner{
+  max-width:1200px;margin:0 auto;
+  padding:0 24px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
 }
 
-/* ── FILTERS ── */
-.filters-bar {
-  position: sticky; top: 64px; z-index: 40;
-  background: rgba(12,11,9,0.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
+/* Logo CSS */
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-mark{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--y);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
 }
-.filters-inner {
-  max-width: 1280px; margin: 0 auto;
-  padding: 0 5vw;
-  display: flex; align-items: center; gap: 0;
-  overflow-x: auto;
-}
-.filters-inner::-webkit-scrollbar { display: none; }
-.cat-tab {
-  padding: 14px 18px;
-  font-size: 13.5px; font-weight: 500;
-  color: var(--sub); cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: .15s; white-space: nowrap;
-  background: none; border-top: none; border-left: none; border-right: none;
-}
-.cat-tab:hover { color: var(--text); }
-.cat-tab.active { color: var(--amber); border-bottom-color: var(--amber); }
-.filter-sep { width: 1px; height: 20px; background: var(--border); flex-shrink: 0; margin: 0 6px; }
-.search-wrap { margin-left: auto; padding: 10px 0; flex-shrink: 0; }
-.search-wrap input {
-  background: var(--surf); border: 1px solid var(--border);
-  color: var(--text); font-family: 'Inter'; font-size: 13px;
-  padding: 7px 12px; border-radius: 7px; width: 180px;
-  transition: .15s;
-}
-.search-wrap input:focus { outline: none; border-color: var(--amber); width: 220px; }
+.logo-mark svg{width:20px;height:20px}
+.logo-wordmark{line-height:1;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;letter-spacing:-0.3px}
+.logo-wordmark span:first-child{color:var(--wh)}
+.logo-wordmark span:last-child{color:var(--y)}
+.logo-tag{font-size:9px;color:#888;text-transform:uppercase;letter-spacing:1.5px;margin-top:1px;font-family:'Inter'}
 
-/* ── CATALOG ── */
-.catalog-wrap {
-  max-width: 1280px; margin: 0 auto;
-  padding: 5vh 5vw 10vh;
+/* Nav */
+.nav{display:flex;align-items:center;gap:4px;flex:1;padding-left:32px}
+.nav-btn{
+  background:none;border:none;color:#aaa;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;
+  letter-spacing:0.5px;text-transform:uppercase;
+  padding:8px 14px;border-radius:6px;
+  transition:.15s;position:relative;
+  display:flex;align-items:center;gap:5px;
 }
-.section-head {
-  display: flex; align-items: baseline; justify-content: space-between;
-  margin-bottom: 28px; flex-wrap: wrap; gap: 8px;
+.nav-btn:hover,.nav-btn.active{color:var(--wh);background:rgba(255,255,255,0.08)}
+.nav-btn.active::after{
+  content:'';position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);
+  width:28px;height:3px;background:var(--y);border-radius:2px;
 }
-.section-title {
-  font-family: 'DM Serif Display'; font-size: 24px;
-  display: flex; align-items: center; gap: 10px;
-}
-.section-count {
-  font-family: 'JetBrains Mono'; font-size: 11.5px; color: var(--sub);
-}
-/* Sub filters (Sellados / Semi Nuevos) */
-.sub-filters { display: flex; gap: 8px; margin-bottom: 26px; flex-wrap: wrap; }
-.sub-chip {
-  padding: 7px 14px; border-radius: 999px;
-  border: 1px solid var(--border); background: none;
-  color: var(--sub); font-size: 12.5px; cursor: pointer; transition: .15s;
-}
-.sub-chip.active, .sub-chip:hover {
-  border-color: var(--amber); color: var(--amber);
-  background: var(--amber-dim);
-}
+.nav-arr{font-size:10px;opacity:.6}
 
-/* ── CARD ── */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 18px;
+/* Dropdown */
+.dropdown-wrap{position:relative}
+.dropdown-menu{
+  position:absolute;top:calc(100% + 10px);left:0;
+  background:var(--bk);border:1px solid #333;border-radius:8px;
+  padding:6px;min-width:180px;
+  opacity:0;pointer-events:none;transform:translateY(-4px);
+  transition:.15s;z-index:200;
 }
-.card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius); overflow: hidden;
-  transition: transform .2s, border-color .2s, background .2s;
-  display: flex; flex-direction: column;
+.dropdown-wrap:hover .dropdown-menu,
+.dropdown-wrap.open .dropdown-menu{opacity:1;pointer-events:all;transform:none}
+.dd-item{
+  display:block;width:100%;text-align:left;
+  background:none;border:none;color:#bbb;
+  font-family:'Barlow Condensed';font-weight:600;font-size:15px;
+  text-transform:uppercase;letter-spacing:0.5px;
+  padding:9px 14px;border-radius:6px;transition:.1s;
 }
-.card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(232,162,60,0.35);
-  background: var(--card-hov);
-}
-.card-badge-row {
-  padding: 14px 16px 0;
-  display: flex; gap: 7px; align-items: center;
-}
-.badge {
-  font-family: 'JetBrains Mono'; font-size: 10px;
-  letter-spacing: 1px; text-transform: uppercase;
-  padding: 4px 9px; border-radius: 5px;
-}
-.badge-new  { background: rgba(232,162,60,0.18); color: var(--amber); border: 1px solid rgba(232,162,60,0.35); }
-.badge-used { background: rgba(140,130,120,0.15); color: var(--sub);  border: 1px solid var(--border); }
-.badge-acc  { background: rgba(37,211,102,0.12);  color: #7dd9a3;     border: 1px solid rgba(37,211,102,0.25); }
-.badge-nostock { background: rgba(232,92,60,0.12); color: #e8846a; border: 1px solid rgba(232,92,60,0.25); }
+.dd-item:hover{background:rgba(255,214,0,0.15);color:var(--y)}
+.dd-item.all{color:var(--y)}
 
-.card-body { padding: 12px 16px 0; flex: 1; }
-.card-name {
-  font-family: 'DM Serif Display'; font-size: 19px;
-  line-height: 1.2; margin-bottom: 5px;
+/* Dólar ticker */
+.dolar-pill{
+  background:rgba(255,255,255,0.07);
+  border:1px solid #333;border-radius:8px;
+  padding:6px 12px;
+  display:flex;align-items:center;gap:8px;
+  flex-shrink:0;
 }
-.card-detail {
-  font-size: 12.5px; color: var(--sub);
-  display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 4px;
-}
-.card-detail span {
-  background: var(--surf); border: 1px solid var(--border);
-  padding: 3px 8px; border-radius: 5px;
-  font-family: 'JetBrains Mono'; font-size: 11px;
-}
+.dolar-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.dolar-label{font-family:'Barlow Condensed';font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#666}
+.dolar-val{font-family:'Barlow Condensed';font-size:17px;font-weight:800;color:var(--y)}
 
-.card-prices {
-  padding: 14px 16px;
-  border-top: 1px dashed var(--border);
-  margin-top: 14px;
+/* Admin btn */
+.admin-btn{
+  background:none;border:1px solid #333;color:#666;
+  font-size:11px;padding:6px 11px;border-radius:6px;
+  display:flex;align-items:center;gap:5px;transition:.15s;flex-shrink:0;
 }
-.price-usd {
-  font-family: 'JetBrains Mono'; font-size: 26px; font-weight: 700;
-  letter-spacing: -0.5px; line-height: 1;
-  color: var(--text);
-}
-.price-usd sup { font-size: 14px; font-weight: 400; color: var(--sub); vertical-align: super; }
-.price-ars {
-  font-family: 'JetBrains Mono'; font-size: 13px;
-  color: var(--sub); margin-top: 4px;
-}
-.price-ars strong { color: var(--text); }
+.admin-btn:hover{border-color:var(--y);color:var(--y)}
 
-.card-action { padding: 0 16px 16px; }
-.wa-btn {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  width: 100%; padding: 11px 0;
-  background: var(--green); color: #fff; border: none;
-  border-radius: 8px; font-size: 13.5px; font-weight: 600;
-  cursor: pointer; transition: .15s; text-decoration: none;
-}
-.wa-btn:hover { background: var(--green-dark); }
-.wa-btn svg { width: 17px; height: 17px; fill: #fff; flex-shrink: 0; }
+/* ─── PAGES ─── */
+.page{display:none}
+.page.active{display:block}
 
-/* Empty / loading states */
-.empty-state {
-  grid-column: 1/-1;
-  text-align: center; padding: 8vh 20px;
-  color: var(--sub); font-family: 'JetBrains Mono'; font-size: 13px;
-}
-.skeleton {
-  background: linear-gradient(90deg, var(--card) 25%, var(--card-hov) 50%, var(--card) 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.4s infinite;
-  border-radius: var(--radius); height: 240px;
-}
-@keyframes shimmer { 0% {background-position: 200% 0} 100% {background-position: -200% 0} }
+/* ─── HOME ─── */
 
-/* ── SECTION DIVIDER ── */
-.section-divider {
-  max-width: 1280px; margin: 0 auto;
-  padding: 0 5vw;
-  border-top: 1px solid var(--border);
+/* Hero */
+.hero{
+  background:var(--bk);
+  padding:72px 24px 80px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;top:-60px;right:-60px;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,214,0,0.18),transparent 70%);
+  pointer-events:none;
+}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:40px}
+.hero-eyebrow{
+  font-family:'Barlow Condensed';font-weight:700;font-size:13px;
+  text-transform:uppercase;letter-spacing:3px;color:var(--y);margin-bottom:18px;
+}
+.hero h1{
+  font-family:'Barlow Condensed',sans-serif;font-weight:900;
+  font-size:clamp(48px,6vw,80px);line-height:1;color:var(--wh);
+}
+.hero h1 em{color:var(--y);font-style:normal}
+.hero-sub{color:#888;font-size:15px;line-height:1.6;margin:18px 0 32px;max-width:400px}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--y);color:var(--bk);border:none;
+  font-family:'Barlow Condensed';font-weight:800;font-size:17px;letter-spacing:0.5px;text-transform:uppercase;
+  padding:14px 28px;border-radius:8px;transition:.15s;
+}
+.hero-cta:hover{background:var(--yd)}
+.hero-cta svg{width:16px;height:16px}
+
+/* Phone illustration */
+.hero-visual{display:flex;align-items:center;justify-content:center}
+.phone-svg-wrap{position:relative}
+.hero-badge-float{
+  position:absolute;top:20px;right:-20px;
+  background:var(--y);color:var(--bk);
+  font-family:'Barlow Condensed';font-weight:800;font-size:13px;text-transform:uppercase;
+  padding:6px 12px;border-radius:6px;letter-spacing:1px;
+  transform:rotate(3deg);
 }
 
-/* ── FOOTER ── */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 30px 5vw;
-  max-width: 1280px; margin: 0 auto;
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 12px;
+/* Section header */
+.sec-header{
+  max-width:1200px;margin:0 auto;
+  padding:56px 24px 28px;
+  display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;
 }
-footer p { color: var(--sub); font-size: 12.5px; }
-footer a { color: var(--sub); transition: .15s; }
-footer a:hover { color: var(--amber); }
+.sec-label{font-family:'Barlow Condensed';font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:3px;color:var(--sub);margin-bottom:6px}
+.sec-title{font-family:'Barlow Condensed';font-weight:900;font-size:36px;line-height:1}
+.sec-sub{font-size:14px;color:var(--sub);margin-top:4px}
 
-/* ── OVERLAY ── */
-.overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(5px);
-  display: none; align-items: center; justify-content: center;
-  z-index: 200; padding: 20px;
+/* Carousel */
+.carousel-wrap{padding:0 0 56px;position:relative}
+.carousel-track-outer{overflow:hidden;padding:8px 24px 12px}
+.carousel-track{
+  display:flex;gap:16px;
+  overflow-x:auto;scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  scroll-behavior:smooth;
 }
-.overlay.open { display: flex; }
+.carousel-track::-webkit-scrollbar{display:none}
+.carousel-track .card{
+  flex:0 0 240px;scroll-snap-align:start;
+}
+.carousel-controls{
+  max-width:1200px;margin:0 auto;padding:0 24px;
+  display:flex;gap:10px;
+}
+.carousel-btn{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--wh);border:1.5px solid var(--border);color:var(--bk);
+  font-size:16px;display:flex;align-items:center;justify-content:center;
+  transition:.15s;
+}
+.carousel-btn:hover{background:var(--y);border-color:var(--y)}
 
-/* ── MODAL ── */
-.modal {
-  background: var(--surf);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  width: 100%; max-width: 520px;
-  max-height: 90vh; overflow-y: auto;
-  padding: 32px;
-  position: relative;
+/* ─── CARDS ─── */
+.card{
+  background:var(--card);border:1.5px solid var(--border);
+  border-radius:var(--r);overflow:hidden;
+  transition:transform .2s,box-shadow .2s,border-color .2s;
+  display:flex;flex-direction:column;
 }
-.modal-close {
-  position: absolute; top: 20px; right: 20px;
-  background: none; border: none; color: var(--sub);
-  font-size: 18px; cursor: pointer; line-height: 1;
-}
-.modal-close:hover { color: var(--text); }
-.modal h3 {
-  font-family: 'DM Serif Display'; font-size: 22px; margin-bottom: 6px;
-}
-.modal .hint { color: var(--sub); font-size: 13px; margin-bottom: 24px; line-height: 1.5; }
-.modal label { display: block; font-size: 12px; color: var(--sub); margin: 16px 0 6px; text-transform: uppercase; letter-spacing: 1px; }
-.modal input, .modal textarea {
-  width: 100%; background: var(--card); border: 1px solid var(--border);
-  color: var(--text); font-family: 'Inter'; font-size: 13.5px;
-  padding: 10px 13px; border-radius: 8px; transition: .15s;
-}
-.modal input:focus, .modal textarea:focus { outline: none; border-color: var(--amber); }
-.modal textarea { font-family: 'JetBrains Mono'; font-size: 12px; min-height: 130px; resize: vertical; }
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.1);border-color:#c0c0c0}
+.card-top{padding:16px 16px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
 
-.btn-primary {
-  width: 100%; margin-top: 16px;
-  background: var(--amber); color: #0C0B09;
-  border: none; padding: 12px; border-radius: 8px;
-  font-size: 14px; font-weight: 700; cursor: pointer; transition: .15s;
+/* Badge — signature "price tag" shape */
+.badge{
+  font-family:'Barlow Condensed';font-weight:800;font-size:12px;
+  text-transform:uppercase;letter-spacing:1.5px;
+  padding:5px 20px 5px 10px;
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 50%,calc(100% - 8px) 100%,0 100%);
+  display:inline-block;flex-shrink:0;
 }
-.btn-primary:hover { opacity: .88; }
-.btn-ghost {
-  width: 100%; margin-top: 10px;
-  background: none; border: 1px solid var(--border); color: var(--sub);
-  padding: 11px; border-radius: 8px; font-size: 13.5px; cursor: pointer; transition: .15s;
-}
-.btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
+.badge-tester{background:var(--y);color:var(--bk)}
+.badge-sellado{background:var(--bk);color:var(--wh)}
+.badge-semi{background:#374151;color:#fff}
+.badge-acc{background:#1a3d2b;color:#7dd9a3}
+.badge-nostock{background:#fef2f2;color:#b91c1c;border:1px solid #fca5a5}
+.badge-other{background:#f3f4f6;color:#374151}
 
-.msg-ok  { color: #7dd9a3; font-size: 12.5px; margin-top: 10px; display: none; }
-.msg-err { color: #e8846a; font-size: 12.5px; margin-top: 10px; display: none; }
+.card-body{padding:12px 16px 0;flex:1}
+.card-name{font-family:'Barlow Condensed';font-weight:800;font-size:20px;line-height:1.1;color:var(--bk)}
+.card-detail{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.card-spec{
+  font-size:11px;font-weight:600;color:var(--sub);
+  background:var(--bg);border:1px solid var(--border);
+  padding:3px 8px;border-radius:4px;
+}
+.card-estado{margin-top:6px}
+.estado-pill{
+  font-size:10.5px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;
+  background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;
+  padding:3px 9px;border-radius:4px;display:inline-block;
+}
 
-/* Tabs */
-.modal-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
-.modal-tab {
-  padding: 10px 16px; font-size: 13px; color: var(--sub);
-  background: none; border: none; border-bottom: 2px solid transparent;
-  cursor: pointer; transition: .15s; white-space: nowrap;
+.card-prices{padding:14px 16px;border-top:1.5px dashed var(--border);margin-top:14px}
+.price-usd{
+  display:flex;align-items:baseline;gap:6px;
 }
-.modal-tab.active { color: var(--amber); border-bottom-color: var(--amber); }
-.modal-panel { display: none; }
-.modal-panel.active { display: block; }
+.price-usd-label{font-family:'Barlow Condensed';font-weight:700;font-size:15px;color:var(--sub);text-transform:uppercase}
+.price-usd-val{font-family:'Barlow Condensed';font-weight:900;font-size:34px;line-height:1;color:var(--bk)}
+.price-ars{font-size:12px;color:var(--sub);margin-top:3px}
+.price-ars strong{color:var(--bk);font-weight:600}
 
-.note-box {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 8px; padding: 12px 14px;
-  font-size: 12px; color: var(--sub); line-height: 1.7;
-  margin-top: 12px;
+.card-action{padding:0 16px 16px}
+.wa-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:11px;
+  background:var(--green);color:#fff;border:none;
+  border-radius:7px;font-size:13.5px;font-weight:600;
+  transition:.15s;text-decoration:none;
 }
-.note-box b { color: var(--text); }
-.note-box ol { padding-left: 16px; margin-top: 6px; }
-.note-box ol li { margin-bottom: 4px; }
+.wa-btn:hover{background:var(--greend)}
+.wa-btn svg{width:16px;height:16px;fill:#fff;flex-shrink:0}
+.wa-btn-dis{background:#e5e7eb;color:#9ca3af;cursor:default}
 
-/* Admin table */
-.admin-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12.5px; }
-.admin-table th {
-  text-align: left; color: var(--sub); font-family: 'JetBrains Mono'; font-size: 10px;
-  text-transform: uppercase; letter-spacing: 1px; padding: 6px 4px;
-  border-bottom: 1px solid var(--border);
+/* ─── CATEGORY PAGE ─── */
+.cat-page-inner{max-width:1200px;margin:0 auto;padding:40px 24px 80px}
+.cat-page-top{margin-bottom:28px;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.cat-page-title{font-family:'Barlow Condensed';font-weight:900;font-size:38px}
+.cat-count{font-family:'Barlow Condensed';font-weight:600;font-size:14px;color:var(--sub);text-transform:uppercase;letter-spacing:1px}
+.cat-sub-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.sub-btn{
+  background:var(--wh);border:1.5px solid var(--border);color:var(--sub);
+  font-family:'Barlow Condensed';font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:0.5px;
+  padding:8px 16px;border-radius:6px;transition:.15s;
 }
-.admin-table td { padding: 5px 4px; border-bottom: 1px solid var(--border); }
-.admin-table input, .admin-table select {
-  background: var(--card); border: 1px solid var(--border); color: var(--text);
-  padding: 6px 8px; border-radius: 6px; font-size: 12px; width: 100%;
+.sub-btn:hover,.sub-btn.active{background:var(--y);border-color:var(--y);color:var(--bk)}
+.search-bar-wrap{margin-bottom:28px}
+.search-bar{
+  width:100%;max-width:400px;
+  background:var(--wh);border:1.5px solid var(--border);color:var(--bk);
+  font-family:'Inter';font-size:14px;
+  padding:11px 16px;border-radius:8px;transition:.15s;
 }
-.admin-table select { font-family: 'Inter'; }
-.admin-table .del-btn {
-  background: none; border: none; color: var(--sub); cursor: pointer; font-size: 15px; padding: 0 4px;
-}
-.admin-table .del-btn:hover { color: var(--red); }
-.add-row-btn {
-  margin-top: 10px; background: none; border: 1px dashed var(--border);
-  color: var(--sub); font-size: 12.5px; padding: 9px;
-  width: 100%; border-radius: 8px; cursor: pointer; transition: .15s;
-}
-.add-row-btn:hover { border-color: var(--amber); color: var(--amber); }
+.search-bar:focus{outline:none;border-color:var(--y)}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.empty{text-align:center;padding:8vh 20px;color:var(--sub);font-family:'Barlow Condensed';font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
 
-/* Responsive */
-@media (max-width: 640px) {
-  .header-inner { padding: 0 4vw; }
-  .ticker-date { display: none; }
-  .logo-sub { display: none; }
-  .hero { padding: 6vh 4vw 4vh; }
-  .catalog-wrap { padding: 4vh 4vw 8vh; }
-  .modal { padding: 24px 20px; }
-  .search-wrap input { width: 130px; }
-  .search-wrap input:focus { width: 150px; }
+/* Skeletons */
+.skeleton-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);height:320px;animation:shimmer 1.4s infinite}
+@keyframes shimmer{0%{background:var(--card)}50%{background:#ececec}100%{background:var(--card)}}
+
+/* ─── WHY SECTION ─── */
+.why-section{background:var(--bk);padding:64px 24px}
+.why-inner{max-width:1200px;margin:0 auto}
+.why-title{font-family:'Barlow Condensed';font-weight:900;font-size:36px;color:var(--wh);margin-bottom:36px}
+.why-title span{color:var(--y)}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}
+.why-item{border-left:3px solid var(--y);padding:0 0 0 18px}
+.why-icon{font-size:24px;margin-bottom:10px}
+.why-item-title{font-family:'Barlow Condensed';font-weight:800;font-size:20px;color:var(--wh);margin-bottom:4px}
+.why-item-sub{font-size:13px;color:#777;line-height:1.5}
+
+/* ─── FOOTER ─── */
+.footer{background:var(--bk);border-top:1px solid #222;padding:32px 24px}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-logo{font-family:'Barlow Condensed';font-weight:900;font-size:18px;color:var(--wh)}
+.footer-logo span{color:var(--y)}
+.footer-txt{font-size:12px;color:#555;text-align:right}
+.footer-wa{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--green);color:#fff;border:none;
+  font-weight:600;font-size:13px;padding:9px 16px;border-radius:7px;
+  transition:.15s;text-decoration:none;
+}
+.footer-wa:hover{background:var(--greend)}
+
+/* ─── OVERLAYS ─── */
+.overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(4px);
+  display:none;align-items:center;justify-content:center;
+  z-index:500;padding:20px;
+}
+.overlay.open{display:flex}
+.modal{
+  background:#fff;border-radius:14px;
+  width:100%;max-width:520px;max-height:90vh;overflow-y:auto;
+  padding:30px;position:relative;
+}
+.modal-lg{max-width:740px}
+.modal-close{position:absolute;top:18px;right:18px;background:none;border:none;font-size:18px;color:#999;cursor:pointer}
+.modal-close:hover{color:var(--bk)}
+.modal h3{font-family:'Barlow Condensed';font-weight:900;font-size:26px;margin-bottom:4px}
+.modal .hint{color:var(--sub);font-size:13px;line-height:1.5;margin-bottom:22px}
+.modal label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--sub);margin:14px 0 6px}
+.modal input,.modal textarea{
+  width:100%;background:#f9f9f9;border:1.5px solid var(--border);
+  color:var(--bk);font-family:'Inter';font-size:14px;
+  padding:10px 13px;border-radius:8px;transition:.15s;
+}
+.modal input:focus,.modal textarea:focus{outline:none;border-color:var(--y)}
+.modal textarea{font-family:'JetBrains Mono',monospace;font-size:12px;min-height:120px;resize:vertical}
+.btn-y{width:100%;margin-top:14px;background:var(--y);color:var(--bk);border:none;padding:13px;border-radius:8px;font-family:'Barlow Condensed';font-weight:800;font-size:17px;letter-spacing:0.5px;text-transform:uppercase;transition:.15s}
+.btn-y:hover{background:var(--yd)}
+.btn-ghost{width:100%;margin-top:8px;background:none;border:1.5px solid var(--border);color:var(--sub);padding:11px;border-radius:8px;font-size:14px;transition:.15s}
+.btn-ghost:hover{border-color:var(--bk);color:var(--bk)}
+.msg-ok{color:#166534;font-size:13px;margin-top:10px;display:none}
+.msg-err{color:#b91c1c;font-size:13px;margin-top:10px;display:none}
+
+.modal-tabs{display:flex;border-bottom:1.5px solid var(--border);margin-bottom:20px;gap:0}
+.modal-tab{padding:10px 16px;background:none;border:none;border-bottom:2px solid transparent;color:var(--sub);font-family:'Barlow Condensed';font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:0.5px;cursor:pointer;transition:.15s}
+.modal-tab.active{color:var(--bk);border-bottom-color:var(--y)}
+.modal-panel{display:none}
+.modal-panel.active{display:block}
+
+.note-box{background:#fafafa;border:1.5px solid var(--border);border-left:3px solid var(--y);border-radius:8px;padding:14px 16px;font-size:12.5px;color:var(--sub);line-height:1.7;margin-top:12px}
+.note-box b{color:var(--bk)}
+.note-box ol{padding-left:16px;margin-top:6px}
+.note-box ol li{margin-bottom:4px}
+
+.admin-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px}
+.admin-table th{text-align:left;color:var(--sub);font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:6px 4px;border-bottom:1px solid var(--border)}
+.admin-table td{padding:4px 4px;border-bottom:1px solid var(--border)}
+.admin-table input{background:#f9f9f9;border:1px solid var(--border);color:var(--bk);padding:6px 8px;border-radius:6px;font-size:12px;width:100%}
+.del-btn{background:none;border:none;color:#d1d5db;cursor:pointer;font-size:15px;padding:0 4px}
+.del-btn:hover{color:#b91c1c}
+.add-row-btn{margin-top:10px;background:none;border:1.5px dashed var(--border);color:var(--sub);font-size:13px;padding:9px;width:100%;border-radius:8px;cursor:pointer;transition:.15s}
+.add-row-btn:hover{border-color:var(--y);color:var(--bk)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:768px){
+  .hero-inner{grid-template-columns:1fr;text-align:center}
+  .hero-visual{display:none}
+  .hero-sub{margin:18px auto 28px}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .nav-text{display:none}
+  .dolar-label{display:none}
+}
+@media(max-width:500px){
+  .header-inner{padding:0 16px}
+  .hero{padding:48px 16px 56px}
+  .cat-page-inner{padding:28px 16px 60px}
+  .sec-header{padding:40px 16px 20px}
+  .carousel-track-outer{padding:8px 16px 12px}
+  .carousel-controls{padding:0 16px}
+  .why-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="site-header">
+<!-- ════════ HEADER ════════ -->
+<header class="header">
   <div class="header-inner">
+    <!-- Logo -->
     <div class="logo">
-      <div class="logo-icon">📱</div>
+      <!-- Si tenés el archivo de logo, reemplazá esto con: <img src="logo.png" alt="Puerto Móvil" height="36"> -->
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 11.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 .82h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+      </div>
       <div>
-        <div>Puerto Móvil</div>
-        <div class="logo-sub">Catálogo Oficial</div>
+        <div class="logo-wordmark"><span>Puerto</span><span>Movil</span></div>
+        <div class="logo-tag">Tu celular de confianza</div>
       </div>
     </div>
 
-    <div class="dolar-ticker" title="Cotización dólar blue actualizada">
-      <div class="ticker-dot"></div>
-      <span class="ticker-label">Blue</span>
-      <span class="ticker-val" id="dolarVal">—</span>
-      <span class="ticker-date" id="dolarDate"></span>
-    </div>
-
-    <button class="admin-trigger" id="openAdminBtn">
-      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      Panel interno
-    </button>
-  </div>
+    <!-- Nav -->
+    <nav class="nav">
+      <button class="nav-btn active" data-page="home" onclick="goPage('home')">Inicio</button>
+      <div class="dropdown-wrap" id="iphoneDropdown">
+        <button class="nav-btn" data-page="iphone" onclick="goPage('iphone','todos')">
+          <span class="nav-text">iPhone</span> <span class="nav-arr">▾</span>
+        </button>
+        <div class="dropdown-menu" id="iphoneMenu">
+          <button class="dd-item all" onclick="goPage('iphone','todos')">Todos los iPhones</button>
+          <!-- Se llena dinámicamente -->
+        </div>
+      </div>
+      <button class="nav-btn" data-page="accesorios" onclick="goPage('accesorios')">Accesorios</button>
+    </nav>
+    <!--
+    <div style="display:flex;align-items:center;gap:10px">
+      <!- Dólar blue -> 
+      <div class="dolar-pill">
+        <div class="dolar-dot"></div>
+        <span class="dolar-label">Blue</span>
+        <span class="dolar-val" id="dolarVal">—</span>
+      </div>
+    </div> 
+  </div> -->
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <p class="hero-tag">✦ Lista de precios actualizada</p>
-  <h1>iPhones y accesorios<br><em>al mejor precio</em>.</h1>
-  <p class="hero-sub">Sellados, semi nuevos y tester con garantía. Precios en dólares y pesos según cotización blue del día.</p>
-</section>
+<!-- ════════ HOME PAGE ════════ -->
+<div class="page active" id="page-home">
 
-<!-- FILTERS -->
-<div class="filters-bar">
-  <div class="filters-inner">
-    <button class="cat-tab active" data-cat="todos">Todo el catálogo</button>
-    <div class="filter-sep"></div>
-    <button class="cat-tab" data-cat="iphone">iPhones</button>
-    <div class="filter-sep"></div>
-    <button class="cat-tab" data-cat="accesorio">Accesorios</button>
-    <div class="search-wrap">
-      <input type="search" id="searchInput" placeholder="Buscar...">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="hero-eyebrow">✦ Precios actualizados hoy</p>
+        <h1>Tu próximo<br><em>iPhone</em><br>te espera.</h1>
+        <p class="hero-sub">iPhones sellados y semi nuevos al mejor precio. Accesorios originales y réplicas. Enviamos a todo el país.</p>
+        <button class="hero-cta" onclick="goPage('iphone','todos')">
+          Ver modelos
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      <div class="hero-visual">
+        <div class="phone-svg-wrap">
+          <!-- iPhone silhouette SVG -->
+          <svg width="200" height="380" viewBox="0 0 200 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="180" height="360" rx="32" fill="#1a1a1a" stroke="#333" stroke-width="2"/>
+            <rect x="24" y="36" width="152" height="298" rx="6" fill="#FFD600" opacity="0.07"/>
+            <rect x="24" y="36" width="152" height="298" rx="6" fill="url(#screenGrad)"/>
+            <defs><linearGradient id="screenGrad" x1="24" y1="36" x2="176" y2="334" gradientUnits="userSpaceOnUse"><stop stop-color="#222"/><stop offset="1" stop-color="#111"/></linearGradient></defs>
+            <!-- Dynamic island -->
+            <rect x="74" y="20" width="52" height="16" rx="8" fill="#0D0D0D"/>
+            <!-- Home indicator -->
+            <rect x="76" y="350" width="48" height="4" rx="2" fill="#333"/>
+            <!-- Camera dot -->
+            <circle cx="105" cy="28" r="4" fill="#333"/>
+            <!-- Screen content hint -->
+            <rect x="34" y="60" width="132" height="8" rx="3" fill="#FFD600" opacity="0.4"/>
+            <rect x="34" y="76" width="90" height="6" rx="3" fill="#444"/>
+            <rect x="34" y="100" width="132" height="60" rx="6" fill="#1e1e1e"/>
+            <rect x="44" y="112" width="50" height="6" rx="2" fill="#FFD600" opacity="0.7"/>
+            <rect x="44" y="124" width="80" height="5" rx="2" fill="#444"/>
+            <rect x="44" y="136" width="40" height="14" rx="3" fill="#25D366"/>
+            <rect x="34" y="172" width="60" height="70" rx="6" fill="#1e1e1e"/>
+            <rect x="104" y="172" width="62" height="70" rx="6" fill="#1e1e1e"/>
+            <rect x="44" y="184" width="38" height="5" rx="2" fill="#FFD600" opacity="0.5"/>
+            <rect x="44" y="196" width="30" height="14" rx="2" fill="#444"/>
+            <rect x="114" y="184" width="38" height="5" rx="2" fill="#FFD600" opacity="0.5"/>
+            <rect x="114" y="196" width="30" height="14" rx="2" fill="#444"/>
+          </svg>
+          <div class="hero-badge-float">Sellado 📦</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Carousel section -->
+  <div id="carouselSection">
+    <div class="sec-header">
+      <div>
+        <div class="sec-label">Catálogo</div>
+        <div class="sec-title">Nuestros modelos</div>
+        <div class="sec-sub">Elegí el iPhone que va con vos</div>
+      </div>
+      <button class="hero-cta" style="font-size:14px;padding:11px 20px" onclick="goPage('iphone','todos')">Ver todos →</button>
+    </div>
+    <div class="carousel-wrap" style="max-width:1248px;margin:0 auto">
+      <div class="carousel-track-outer">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="skeleton-card" style="flex:0 0 240px"></div>
+          <div class="skeleton-card" style="flex:0 0 240px"></div>
+          <div class="skeleton-card" style="flex:0 0 240px"></div>
+          <div class="skeleton-card" style="flex:0 0 240px"></div>
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prevBtn">←</button>
+        <button class="carousel-btn" id="nextBtn">→</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- SUB FILTERS (iPhones only) -->
-<div id="subFiltersWrap" style="background:var(--bg); border-bottom:1px solid var(--border); display:none;">
-  <div style="max-width:1280px; margin:0 auto; padding:10px 5vw;">
-    <div class="sub-filters" id="subFiltersContainer">
-      <!-- Se generan dinámicamente según el catálogo -->
+  <!-- Why section -->
+  <div class="why-section">
+    <div class="why-inner">
+      <div class="why-title">¿Por qué <span>Puerto Móvil</span>?</div>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-icon">✅</div>
+          <div class="why-item-title">Garantía real</div>
+          <div class="why-item-sub">Todos los equipos revisados y con garantía de funcionamiento.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">💸</div>
+          <div class="why-item-title">Precio dólar blue</div>
+          <div class="why-item-sub">Precios en dólares, cotización blue. Siempre actualizados.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">📦</div>
+          <div class="why-item-title">Sellados y semi nuevos</div>
+          <div class="why-item-sub">iPhone original sellado o en excelente estado.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">📲</div>
+          <div class="why-item-title">Atención por WhatsApp</div>
+          <div class="why-item-sub">Respondemos rápido. Contacto directo, sin intermediarios.</div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- CATALOG -->
-<div class="catalog-wrap">
-  <div class="section-head">
-    <div class="section-title" id="sectionTitle">Catálogo completo</div>
-    <span class="section-count" id="countText"></span>
+</div><!-- /page-home -->
+
+<!-- ════════ IPHONE PAGE ════════ -->
+<div class="page" id="page-iphone">
+  <div class="cat-page-inner">
+    <div class="cat-page-top">
+      <div class="cat-page-title" id="iphonePageTitle">iPhones</div>
+      <div class="cat-count" id="iphoneCount"></div>
+    </div>
+    <div class="cat-sub-bar" id="iphoneSubBar">
+      <!-- Dinámico -->
+    </div>
+    <div class="search-bar-wrap">
+      <input type="search" class="search-bar" id="iphoneSearch" placeholder="Buscar modelo, almacenamiento...">
+    </div>
+    <div class="cat-grid" id="iphoneGrid"></div>
   </div>
-  <div class="grid" id="productGrid">
-    <!-- skeleton -->
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
+</div>
+
+<!-- ════════ ACCESORIOS PAGE ════════ -->
+<div class="page" id="page-accesorios">
+  <div class="cat-page-inner">
+    <div class="cat-page-top">
+      <div class="cat-page-title">Accesorios</div>
+      <div class="cat-count" id="accCount"></div>
+    </div>
+    <div class="search-bar-wrap">
+      <input type="search" class="search-bar" id="accSearch" placeholder="Buscar accesorio...">
+    </div>
+    <div class="cat-grid" id="accGrid"></div>
   </div>
 </div>
 
-<!-- FOOTER -->
-<div style="border-top:1px solid var(--border);">
-  <footer>
-    <p>© 2025 Puerto Móvil · Precios en USD actualizados por el propietario. Cotización blue tomada automáticamente.</p>
-    <p><a href="https://wa.me/5491169724846" target="_blank">📲 WhatsApp directo</a></p>
-  </footer>
-</div>
+<!-- ════════ FOOTER ════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Puerto<span>Movil</span></div>
+    <a class="footer-wa" href="https://wa.me/5491169724846" target="_blank">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      +54 9 11 6972-4846
+    </a>
+    <!-- Admin -->
+    <button class="admin-btn" id="openAdminBtn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </button> <!--
+    <div class="footer-txt">Los precios pueden variar sin previo aviso.<br>Cotización blue actualizada automáticamente.</div>
+    -->
+  </div>
+</footer>
 
-<!-- ══════════════ MODALS ══════════════ -->
-
-<!-- LOGIN OVERLAY -->
+<!-- ════════ LOGIN OVERLAY ════════ -->
 <div class="overlay" id="loginOverlay">
-  <div class="modal" style="max-width:380px;">
+  <div class="modal" style="max-width:360px">
     <button class="modal-close" id="closeLoginBtn">✕</button>
     <h3>Panel interno</h3>
-    <p class="hint">Acceso exclusivo del propietario de Puerto Móvil.</p>
+    <p class="hint">Solo para el propietario de Puerto Móvil.</p>
     <label>Contraseña</label>
-    <input type="password" id="passInput" placeholder="••••••••" autocomplete="current-password">
-    <button class="btn-primary" id="loginBtn">Ingresar</button>
+    <input type="password" id="passInput" placeholder="••••••••">
+    <button class="btn-y" id="loginBtn">Ingresar</button>
     <p class="msg-err" id="loginErr">Contraseña incorrecta.</p>
   </div>
 </div>
 
-<!-- ADMIN OVERLAY -->
+<!-- ════════ ADMIN OVERLAY ════════ -->
 <div class="overlay" id="adminOverlay">
-  <div class="modal" style="max-width:700px;">
+  <div class="modal modal-lg">
     <button class="modal-close" id="closeAdminBtn">✕</button>
-    <h3>Editar catálogo de precios</h3>
-    <p class="hint">Los cambios se ven al instante para todos los visitantes.</p>
-
+    <h3>Editar catálogo</h3>
+    <p class="hint">Cambios visibles en la página al instante.</p>
     <div class="modal-tabs">
       <button class="modal-tab active" data-tab="sheets">Google Sheets</button>
-      <button class="modal-tab" data-tab="manual">Edición manual</button>
-      <button class="modal-tab" data-tab="csv">Pegar CSV / Excel</button>
+      <button class="modal-tab" data-tab="manual">Manual</button>
+      <button class="modal-tab" data-tab="csv">Pegar Excel/CSV</button>
     </div>
-
-    <!-- TAB: GOOGLE SHEETS -->
+    <!-- SHEETS -->
     <div class="modal-panel active" id="tab-sheets">
-      <label>URL de tu Google Sheet (publicada como CSV)</label>
+      <label>URL de Google Sheets (publicada como CSV)</label>
       <input type="url" id="sheetsUrl" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv">
       <div class="note-box">
-        <b>Cómo configurarlo (una sola vez):</b>
+        <b>Cómo publicar tu planilla como CSV:</b>
         <ol>
-          <li>Abrí tu Google Sheet con los precios.</li>
+          <li>Abrí tu Google Sheet.</li>
           <li>Menú <b>Archivo → Compartir → Publicar en la web</b>.</li>
-          <li>Elegí la hoja, formato <b>CSV</b> y hacé clic en <b>Publicar</b>.</li>
-          <li>Copiá la URL que aparece y pegala arriba.</li>
-          <li>Guardá. De ahí en más, cada vez que editás la planilla, la página se actualiza sola.</li>
+          <li>Formato: <b>CSV</b> → clic en <b>Publicar</b>.</li>
+          <li>Copiá la URL y pegala arriba.</li>
         </ol>
-        <br>
-        <b>Columnas requeridas (en este orden):</b><br>
-        Categoría · Nombre · Detalle · Estado · Precio USD · Stock<br>
-        <i>Categoría: puede ser cualquier nombre. Si contiene la palabra "iphone" aparece en la pestaña iPhones. Si contiene "accesorio" en la pestaña Accesorios. Ejemplo: "iPhone Tester", "iPhone Sellado", "iPhone Semi Nuevo", "Accesorio".</i><br>
-        <i>Stock: "Sí" o "No"</i>
+        <b>Columnas (en orden):</b> Categoría · Nombre · Detalle · Estado · Precio USD · Stock<br>
+        <i>Categoría: cualquier texto que incluya "iphone" o "accesorio". Stock: "Sí" o "No".</i>
       </div>
-      <button class="btn-primary" id="saveSheetBtn">Guardar URL y recargar precios</button>
-      <p class="msg-ok" id="sheetOk">✓ URL guardada. Recargando precios…</p>
-      <p class="msg-err" id="sheetErr">No se pudo cargar la planilla. Revisá la URL y que esté publicada como CSV.</p>
+      <button class="btn-y" id="saveSheetBtn">Guardar y recargar precios</button>
+      <p class="msg-ok" id="sheetOk">✓ URL guardada. Recargando…</p>
+      <p class="msg-err" id="sheetErr"></p>
     </div>
-
-    <!-- TAB: MANUAL -->
+    <!-- MANUAL -->
     <div class="modal-panel" id="tab-manual">
-      <div style="overflow-x:auto; margin-top:6px;">
+      <div style="overflow-x:auto">
         <table class="admin-table">
-          <thead>
-            <tr>
-              <th style="min-width:130px">Categoría</th>
-              <th style="min-width:150px">Nombre</th>
-              <th style="min-width:100px">Detalle</th>
-              <th style="min-width:120px">Estado</th>
-              <th style="min-width:90px">USD</th>
-              <th style="min-width:60px">Stock</th>
-              <th></th>
-            </tr>
-          </thead>
+          <thead><tr>
+            <th style="min-width:130px">Categoría</th>
+            <th style="min-width:140px">Nombre</th>
+            <th style="min-width:90px">Detalle</th>
+            <th style="min-width:110px">Estado</th>
+            <th style="min-width:80px">USD</th>
+            <th style="min-width:55px">Stock</th>
+            <th></th>
+          </tr></thead>
           <tbody id="adminTbody"></tbody>
         </table>
       </div>
       <button class="add-row-btn" id="addRowBtn">+ Agregar producto</button>
-      <button class="btn-primary" id="saveManualBtn">Guardar cambios</button>
+      <button class="btn-y" id="saveManualBtn">Guardar cambios</button>
       <p class="msg-ok" id="manualOk">✓ Guardado.</p>
     </div>
-
-    <!-- TAB: CSV PASTE -->
+    <!-- CSV -->
     <div class="modal-panel" id="tab-csv">
-      <label>Pegá datos copiados de Excel o Google Sheets</label>
-      <textarea id="csvInput" placeholder="Categoría,Nombre,Detalle,Estado,Precio USD,Stock
-iPhone Sellado,iPhone 15 Pro,256GB,Nuevo,900,Sí
-Accesorio,Cable USB-C,Original Apple,—,18,Sí"></textarea>
-      <div class="note-box">
-        Columnas (en orden): <b>Categoría, Nombre, Detalle, Estado, Precio USD, Stock</b><br>
-        Separador: coma o tabulación (copiado de Excel funciona directo).<br>
-        Esto <b>reemplaza</b> toda la lista actual.
-      </div>
-      <button class="btn-primary" id="importCsvBtn">Reemplazar lista</button>
+      <label>Pegá datos de Excel o Google Sheets</label>
+      <textarea id="csvInput" placeholder="Categoría,Nombre,Detalle,Estado,Precio USD,Stock&#10;iPhone Tester,iPhone 11,128GB,Excelente estado,450,Sí"></textarea>
+      <div class="note-box">Columnas: <b>Categoría, Nombre, Detalle, Estado, Precio USD, Stock</b>. Separador: coma o tabulación. <b>Reemplaza</b> la lista actual.</div>
+      <button class="btn-y" id="importCsvBtn">Reemplazar lista</button>
       <p class="msg-ok" id="csvOk">✓ Lista importada.</p>
-      <p class="msg-err" id="csvErr">No se pudo leer el formato. Revisá las columnas.</p>
+      <p class="msg-err" id="csvErr"></p>
     </div>
   </div>
 </div>
 
-<!-- ══════════════ SCRIPT ══════════════ -->
+<!-- ════════ SCRIPT ════════ -->
 <script>
 // ── CONFIG ──
-const WA_NUMBER = '5491169724846';
-const STORAGE_KEY = 'pm_catalog_v1';
-const SHEET_URL_KEY = 'pm_sheet_url';
+const WA = '5491169724846';
 const ADMIN_PASS = 'puertomovil2025';
-
-// URL de Google Sheets embebida directamente en el código.
-// Todos los visitantes cargan datos desde acá al entrar a la página.
-// Para cambiarla en el futuro: editá esta línea y volvé a subir el HTML a GitHub.
-const DEFAULT_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT0jamwWtdX65SQOQrj9Bi1a2h3geYAKmbCW2YSUEcnLkPPGGMGnqZPSNbor-kJX2-w8RQx8onvDRRY/pub?gid=0&single=true&output=csv'; // Cambiar acá
+const STORAGE_KEY = 'pm_v2_catalog';
+const SHEET_URL_KEY = 'pm_v2_sheet_url';
+const DEFAULT_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT0jamwWtdX65SQOQrj9Bi1a2h3geYAKmbCW2YSUEcnLkPPGGMGnqZPSNbor-kJX2-w8RQx8onvDRRY/pub?gid=0&single=true&output=csv';
 
 // ── STATE ──
 let catalog = [];
 let dolarBlue = null;
-let activeCat = 'todos';
-let activeSub = 'todos';
+let currentIphoneSub = 'todos';
+let adminUnlocked = false;
 
-// ── DEMO DATA ──
-const DEMO_DATA = [
-  {cat:'iPhone Sellado',  nombre:'iPhone 15 Pro',       detalle:'128GB',   estado:'Nuevo Sellado',   precio:900,  stock:true},
-  {cat:'iPhone Sellado',  nombre:'iPhone 15 Pro Max',    detalle:'256GB',   estado:'Nuevo Sellado',   precio:1050, stock:true},
-  {cat:'iPhone Sellado',  nombre:'iPhone 15',            detalle:'128GB',   estado:'Nuevo Sellado',   precio:780,  stock:true},
-  {cat:'iPhone Sellado',  nombre:'iPhone 14 Pro',        detalle:'256GB',   estado:'Nuevo Sellado',   precio:820,  stock:false},
-  {cat:'iPhone Sellado',  nombre:'iPhone 14',            detalle:'128GB',   estado:'Nuevo Sellado',   precio:620,  stock:true},
-  {cat:'iPhone Sellado',  nombre:'iPhone 13',            detalle:'128GB',   estado:'Nuevo Sellado',   precio:510,  stock:true},
-  {cat:'iPhone Semi Nuevo',nombre:'iPhone 13 Pro',       detalle:'256GB',   estado:'Excelente estado',precio:550,  stock:true},
-  {cat:'iPhone Semi Nuevo',nombre:'iPhone 12',           detalle:'128GB',   estado:'Buen estado',     precio:350,  stock:true},
-  {cat:'iPhone Semi Nuevo',nombre:'iPhone 11',           detalle:'64GB',    estado:'Buen estado',     precio:270,  stock:true},
-  {cat:'Accesorio',        nombre:'Adaptador USB-C',     detalle:'Original',estado:'Nuevo',           precio:22,   stock:true},
-  {cat:'Accesorio',        nombre:'Adaptador USB-C',     detalle:'Réplica', estado:'Nuevo',           precio:8,    stock:true},
-  {cat:'Accesorio',        nombre:'Auriculares EarPods', detalle:'USB-C',   estado:'Nuevo',           precio:18,   stock:true},
-  {cat:'Accesorio',        nombre:'Cable USB-C',         detalle:'1 metro', estado:'Nuevo',           precio:12,   stock:true},
-  {cat:'Accesorio',        nombre:'Templado',            detalle:'iPhone 15 Pro',estado:'Nuevo',      precio:9,    stock:true},
-  {cat:'Accesorio',        nombre:'Templado',            detalle:'iPhone 14',    estado:'Nuevo',      precio:7,    stock:true},
+const DEMO = [
+  {cat:'iPhone Tester', nombre:'iPhone 13', detalle:'128GB', estado:'Excelente estado', precio:480, stock:true},
+  {cat:'iPhone Tester', nombre:'iPhone 12', detalle:'128GB', estado:'Buen estado', precio:360, stock:true},
+  {cat:'iPhone Sellado', nombre:'iPhone 15', detalle:'128GB', estado:'Nuevo Sellado', precio:820, stock:true},
+  {cat:'iPhone Sellado', nombre:'iPhone 15 Pro', detalle:'256GB', estado:'Nuevo Sellado', precio:950, stock:true},
+  {cat:'iPhone Sellado', nombre:'iPhone 14', detalle:'128GB', estado:'Nuevo Sellado', precio:660, stock:true},
+  {cat:'iPhone Tester', nombre:'iPhone 11', detalle:'64GB', estado:'Buen estado', precio:270, stock:true},
+  {cat:'Accesorio', nombre:'Auriculares EarPods', detalle:'USB-C', estado:'Nuevo', precio:18, stock:true},
+  {cat:'Accesorio', nombre:'Adaptador USB-C', detalle:'Original', estado:'Nuevo', precio:22, stock:true},
+  {cat:'Accesorio', nombre:'Cable USB-C', detalle:'1 metro', estado:'Nuevo', precio:10, stock:true},
+  {cat:'Accesorio', nombre:'Templado', detalle:'iPhone 15 Pro', estado:'Nuevo', precio:8, stock:true},
 ];
 
-// ── FIX SHEETS URL ──
-// Convierte cualquier URL de Google Sheets a la URL de exportación CSV correcta
-function fixSheetsUrl(url) {
-  if (!url) return url;
-  // Ya es URL de CSV → no tocar
-  if (url.includes('output=csv') || url.includes('format=csv')) return url;
-  // Extraer el ID de la planilla
-  const idMatch = url.match(/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
-  if (!idMatch) return url; // URL desconocida, devolver tal cual
-  const id = idMatch[1];
-  const gidMatch = url.match(/gid=(\d+)/);
-  const gid = gidMatch ? gidMatch[1] : '0';
-  // Usar endpoint de exportación (más confiable que /pub)
-  return `https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}`;
+// ── PAGE ROUTING ──
+function goPage(page, sub) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.page === page);
+  });
+  if (page === 'iphone') {
+    currentIphoneSub = sub || 'todos';
+    renderIphoneSubBar();
+    renderIphoneGrid();
+    document.getElementById('iphoneSearch').value = '';
+  }
+  if (page === 'accesorios') {
+    renderAccGrid();
+    document.getElementById('accSearch').value = '';
+  }
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
-
+// ── DÓLAR BLUE ──
 async function fetchDolar() {
-  const APIs = [
-    'https://dolarapi.com/v1/dolares/blue',
-    'https://api.argentinadatos.com/v1/cotizaciones/dolares/blue'
-  ];
-  for (const url of APIs) {
-    try {
-      const r = await fetch(url);
-      if (!r.ok) continue;
-      const d = await r.json();
-      const venta = d.venta || d.sell;
-      if (venta) { dolarBlue = venta; return; }
-    } catch {}
-  }
+  try {
+    const r = await fetch('https://dolarapi.com/v1/dolares/blue');
+    if (r.ok) { const d = await r.json(); dolarBlue = d.venta; }
+  } catch {}
+  try {
+    if (!dolarBlue) {
+      const r = await fetch('https://api.argentinadatos.com/v1/cotizaciones/dolares/blue');
+      if (r.ok) { const d = await r.json(); dolarBlue = d.venta || d.sell; }
+    }
+  } catch {}
+  const el = document.getElementById('dolarVal');
+  el.textContent = dolarBlue ? '$' + dolarBlue.toLocaleString('es-AR') : '—';
 }
 
-function renderDolar() {
-  const valEl   = document.getElementById('dolarVal');
-  const dateEl  = document.getElementById('dolarDate');
-  if (dolarBlue) {
-    valEl.textContent  = '$' + dolarBlue.toLocaleString('es-AR');
-    dateEl.textContent = new Date().toLocaleDateString('es-AR', {day:'2-digit', month:'short'});
-  } else {
-    valEl.textContent  = '—';
-    dateEl.textContent = '';
-  }
+// ── DATA ──
+function fixUrl(url) {
+  if (!url) return url;
+  if (url.includes('output=csv') || url.includes('format=csv')) return url;
+  const m = url.match(/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
+  if (!m) return url;
+  const gm = url.match(/gid=(\d+)/);
+  return `https://docs.google.com/spreadsheets/d/${m[1]}/export?format=csv&gid=${gm?.[1]||'0'}`;
 }
 
-function toARS(usd) {
-  if (!dolarBlue || !usd) return null;
-  return Math.round(usd * dolarBlue);
+function parseCsv(text) {
+  const lines = text.split('\n').map(l=>l.trim()).filter(Boolean);
+  if (!lines.length) return [];
+  const sep = lines[0].includes('\t') ? '\t' : ',';
+  let s = /categor/i.test(lines[0]) ? 1 : 0;
+  return lines.slice(s).map(line => {
+    const c = line.split(sep).map(x=>x.trim().replace(/^"|"$/g,''));
+    if (c.length < 5) return null;
+    const p = Number(String(c[4]).replace(/[^\d.]/g,''));
+    return {
+      cat:    c[0]||'Accesorio',
+      nombre: c[1]||'',
+      detalle:c[2]||'',
+      estado: c[3]||'',
+      precio: p||0,
+      stock:  !c[5] || /^(s|si|sí|yes|1|true)/i.test(c[5].trim())
+    };
+  }).filter(Boolean);
 }
-function fmtARS(n) {
-  return n.toLocaleString('es-AR');
-}
-
-// ── SUB FILTERS DINÁMICOS ──
-function renderSubFilters() {
-  const container = document.getElementById('subFiltersContainer');
-  if (!container) return;
-  // Obtener sub-categorías únicas de iPhones
-  const iphoneCats = [...new Set(
-    catalog
-      .filter(i => i.cat.toLowerCase().includes('iphone'))
-      .map(i => i.cat)
-  )];
-  let html = `<button class="sub-chip active" data-sub="todos">Todos</button>`;
-  iphoneCats.forEach(cat => {
-    // Usar la última palabra como etiqueta corta (ej: "iPhone Tester" → "Tester")
-    const label = cat.replace(/iphone\s*/i, '').trim() || cat;
-    html += `<button class="sub-chip" data-sub="${cat.toLowerCase()}">${label || cat}</button>`;
-  });
-  container.innerHTML = html;
-  // Re-bindear eventos
-  container.querySelectorAll('.sub-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      container.querySelectorAll('.sub-chip').forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      activeSub = chip.dataset.sub;
-      renderGrid();
-    });
-  });
-}
-
 
 async function loadCatalog() {
-  // 1. Prioridad: URL embebida en el código (o una sobreescritura guardada desde el panel)
   const overrideUrl = localStorage.getItem(SHEET_URL_KEY);
-  const sheetUrl = fixSheetsUrl(overrideUrl || DEFAULT_SHEET_URL);
-
+  const url = fixUrl(overrideUrl || DEFAULT_SHEET_URL);
   try {
-    const r = await fetch(sheetUrl + '&ts=' + Date.now());
+    const r = await fetch(url + '&ts=' + Date.now());
     if (r.ok) {
       const text = await r.text();
-      if (!text.trim().startsWith('<')) { // No es HTML
-        const parsed = parseCSV(text);
-        if (parsed.length) {
-          catalog = parsed;
-          renderSubFilters();
-          renderGrid();
-          return;
-        }
+      if (!text.trim().startsWith('<')) {
+        const p = parseCsv(text);
+        if (p.length) { catalog = p; afterLoad(); return; }
       }
     }
   } catch {}
-
-  // 2. Fallback: datos guardados localmente desde el panel manual/CSV
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) { catalog = JSON.parse(saved); renderSubFilters(); renderGrid(); return; }
+    const s = localStorage.getItem(STORAGE_KEY);
+    if (s) { catalog = JSON.parse(s); afterLoad(); return; }
   } catch {}
-
-  // 3. Último recurso: demo data
-  catalog = DEMO_DATA;
-  renderSubFilters();
-  renderGrid();
+  catalog = DEMO;
+  afterLoad();
 }
 
-function parseCSV(text) {
-  const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
-  if (!lines.length) return [];
-  const sep = lines[0].includes('\t') ? '\t' : ',';
-  let start = 0;
-  if (/categoría|categoria|nombre/i.test(lines[0])) start = 1;
-  const result = [];
-  for (let i = start; i < lines.length; i++) {
-    const cols = lines[i].split(sep).map(c => c.trim().replace(/^"|"$/g,''));
-    if (cols.length < 5) continue;
-    const [cat, nombre, detalle, estado, precioRaw, stockRaw] = cols;
-    const precio = Number(String(precioRaw).replace(/[^\d.]/g,''));
-    if (!precio && precio !== 0) continue;
-    result.push({
-      cat:    cat || 'Accesorio',
-      nombre: nombre || '',
-      detalle:detalle || '',
-      estado: estado || '',
-      precio,
-      stock:  !stockRaw || /^(s|si|sí|yes|1|true)/i.test(stockRaw.trim())
-    });
-  }
-  return result;
+function afterLoad() {
+  buildIphoneDropdown();
+  renderCarousel();
+  if (document.getElementById('page-iphone').classList.contains('active')) { renderIphoneSubBar(); renderIphoneGrid(); }
+  if (document.getElementById('page-accesorios').classList.contains('active')) renderAccGrid();
 }
 
 function saveCatalog() {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(catalog)); } catch {}
 }
 
-// ── RENDERING ──
-function getFilteredItems() {
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  return catalog.filter(item => {
-    const catNorm = item.cat.toLowerCase();
-    const catMatch =
-      activeCat === 'todos' ||
-      (activeCat === 'iphone'    && catNorm.includes('iphone')) ||
-      (activeCat === 'accesorio' && catNorm.includes('accesorio'));
-    // Sub-filtro: "todos" muestra todo, o coincide con el nombre completo de categoría
-    const subMatch =
-      activeSub === 'todos' ||
-      catNorm === activeSub;
-    const qMatch = !q ||
-      item.nombre.toLowerCase().includes(q) ||
-      item.detalle.toLowerCase().includes(q) ||
-      item.cat.toLowerCase().includes(q);
-    return catMatch && subMatch && qMatch;
-  });
+// ── UTILS ──
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+function waLink(nombre, detalle) {
+  return `https://wa.me/${WA}?text=${encodeURIComponent('¡Hola! Estoy interesado en el ' + nombre + (detalle?' '+detalle:'') + '.')}`;
 }
-
-function getWALink(nombre, detalle) {
-  const msg = encodeURIComponent(`¡Hola! Estoy interesado en el ${nombre}${detalle ? ' ' + detalle : ''}.`);
-  return `https://wa.me/${WA_NUMBER}?text=${msg}`;
-}
+function arsPrice(usd) { return dolarBlue ? Math.round(usd * dolarBlue) : null; }
+function fmtArs(n) { return n.toLocaleString('es-AR'); }
 
 function getBadge(item) {
-  const c = item.cat.toLowerCase();
   if (!item.stock) return `<span class="badge badge-nostock">Sin stock</span>`;
-  if (!c.includes('iphone') && !c.includes('accesorio')) {
-    // Categoría desconocida: mostrar tal cual
-    return `<span class="badge badge-used">${item.cat}</span>`;
-  }
+  const c = item.cat.toLowerCase();
+  if (c.includes('tester'))  return `<span class="badge badge-tester">Tester</span>`;
+  if (c.includes('sellado')) return `<span class="badge badge-sellado">Sellado</span>`;
+  if (c.includes('semi'))    return `<span class="badge badge-semi">Semi Nuevo</span>`;
   if (c.includes('accesorio')) return `<span class="badge badge-acc">Accesorio</span>`;
-  // iPhone: mostrar el sub-tipo (todo lo que viene después de "iphone")
-  const sub = item.cat.replace(/iphone\s*/i, '').trim();
-  if (!sub) return `<span class="badge badge-new">iPhone</span>`;
-  if (c.includes('sellado')) return `<span class="badge badge-new">${sub}</span>`;
-  return `<span class="badge badge-used">${sub}</span>`;
+  const label = item.cat.replace(/iphone\s*/i,'').trim() || item.cat;
+  return `<span class="badge badge-other">${esc(label)}</span>`;
 }
 
-function renderCard(item) {
-  const ars = toARS(item.precio);
-  const arsHtml = ars
-    ? `<div class="price-ars">≈ <strong>$${fmtARS(ars)}</strong> ARS</div>`
-    : `<div class="price-ars" style="color:var(--border)">ARS (configurar dólar blue)</div>`;
-
-  const detailBadges = [item.detalle, item.estado]
-    .filter(Boolean)
-    .map(d => `<span>${d}</span>`)
-    .join('');
-
-  return `<div class="card">
-    <div class="card-badge-row">${getBadge(item)}</div>
-    <div class="card-body">
-      <div class="card-name">${item.nombre}</div>
-      <div class="card-detail">${detailBadges}</div>
-    </div>
-    <div class="card-prices">
-      <div class="price-usd"><sup>U$D </sup>${item.precio.toLocaleString('es-AR')}</div>
-      ${arsHtml}
-    </div>
-    <div class="card-action">
-      ${item.stock
-        ? `<a class="wa-btn" href="${getWALink(item.nombre, item.detalle)}" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Consultar por WhatsApp
-           </a>`
-        : `<button class="wa-btn" disabled style="background:var(--card-hov);color:var(--sub);cursor:default;">Sin stock disponible</button>`
-      }
-    </div>
-  </div>`;
+function cardHtml(item) {
+  const ars = arsPrice(item.precio);
+  const arsHtml = ars ? `<div class="price-ars">≈ <strong>$${fmtArs(ars)}</strong> ARS</div>` : '';
+  const specBadges = [item.detalle, item.estado].filter(Boolean)
+    .map(s=>`<span class="card-spec">${esc(s)}</span>`).join('');
+  const waBtn = item.stock
+    ? `<a class="wa-btn" href="${waLink(item.nombre,item.detalle)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Consultar por WhatsApp</a>`
+    : `<div class="wa-btn wa-btn-dis">Sin stock</div>`;
+  return `<div class="card"><div class="card-top">${getBadge(item)}</div><div class="card-body"><div class="card-name">${esc(item.nombre)}</div><div class="card-detail">${specBadges}</div></div><div class="card-prices"><div class="price-usd"><span class="price-usd-label">USD</span><span class="price-usd-val">${item.precio.toLocaleString('es-AR')}</span></div>${arsHtml}</div><div class="card-action">${waBtn}</div></div>`;
 }
 
-function renderGrid() {
-  const items = getFilteredItems();
-  const grid = document.getElementById('productGrid');
-  const countEl = document.getElementById('countText');
-  const titleEl = document.getElementById('sectionTitle');
-
-  // Section title
-  const titles = {todos:'Catálogo completo', iphone:'iPhones', accesorio:'Accesorios'};
-  titleEl.textContent = titles[activeCat] || 'Catálogo';
-
-  countEl.textContent = `${items.length} producto${items.length !== 1 ? 's' : ''}`;
-
-  if (!items.length) {
-    grid.innerHTML = `<div class="empty-state">No hay productos que coincidan con tu búsqueda.</div>`;
-    return;
-  }
-  grid.innerHTML = items.map(renderCard).join('');
+// ── CAROUSEL ──
+function renderCarousel() {
+  const track = document.getElementById('carouselTrack');
+  const items = catalog.slice(0, 10);
+  if (!items.length) { track.innerHTML = '<div class="empty">Sin productos</div>'; return; }
+  track.innerHTML = items.map(item => {
+    const c = cardHtml(item);
+    // wrap in flex-child with fixed width
+    return c.replace('<div class="card">', '<div class="card" style="flex:0 0 240px;scroll-snap-align:start">');
+  }).join('');
 }
 
-// ── FILTERS ──
-document.querySelectorAll('.cat-tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    activeCat = btn.dataset.cat;
-    activeSub = 'todos';
-    // Resetear sub-chip activo al "Todos"
-    const subContainer = document.getElementById('subFiltersContainer');
-    if (subContainer) {
-      subContainer.querySelectorAll('.sub-chip').forEach(c => c.classList.toggle('active', c.dataset.sub === 'todos'));
-    }
-    const wrap = document.getElementById('subFiltersWrap');
-    wrap.style.display = activeCat === 'iphone' ? 'block' : 'none';
-    renderGrid();
+document.getElementById('prevBtn').onclick = () => {
+  const t = document.getElementById('carouselTrack');
+  t.scrollBy({left: -256, behavior:'smooth'});
+};
+document.getElementById('nextBtn').onclick = () => {
+  const t = document.getElementById('carouselTrack');
+  t.scrollBy({left: 256, behavior:'smooth'});
+};
+
+// ── IPHONE PAGE ──
+function iphoneItems() {
+  return catalog.filter(i => i.cat.toLowerCase().includes('iphone'));
+}
+function iphoneSubCats() {
+  return [...new Set(iphoneItems().map(i => i.cat))];
+}
+
+function buildIphoneDropdown() {
+  const menu = document.getElementById('iphoneMenu');
+  const subs = iphoneSubCats();
+  const items = subs.map(cat => {
+    const label = cat.replace(/iphone\s*/i,'').trim() || cat;
+    return `<button class="dd-item" onclick="goPage('iphone','${cat.toLowerCase()}')">${esc(label)}</button>`;
+  }).join('');
+  menu.innerHTML = `<button class="dd-item all" onclick="goPage('iphone','todos')">Todos los iPhones</button>${items}`;
+}
+
+function renderIphoneSubBar() {
+  const bar = document.getElementById('iphoneSubBar');
+  const cats = iphoneSubCats();
+  const allBtn = `<button class="sub-btn ${currentIphoneSub==='todos'?'active':''}" onclick="setIphoneSub('todos')">Todos</button>`;
+  const catBtns = cats.map(cat => {
+    const label = cat.replace(/iphone\s*/i,'').trim() || cat;
+    const active = currentIphoneSub === cat.toLowerCase() ? 'active' : '';
+    return `<button class="sub-btn ${active}" onclick="setIphoneSub('${cat.toLowerCase()}')">${esc(label)}</button>`;
+  }).join('');
+  bar.innerHTML = allBtn + catBtns;
+}
+
+function setIphoneSub(sub) {
+  currentIphoneSub = sub;
+  renderIphoneSubBar();
+  renderIphoneGrid();
+}
+
+function renderIphoneGrid() {
+  const q = document.getElementById('iphoneSearch').value.trim().toLowerCase();
+  const items = iphoneItems().filter(i => {
+    const subMatch = currentIphoneSub === 'todos' || i.cat.toLowerCase() === currentIphoneSub;
+    const qMatch = !q || i.nombre.toLowerCase().includes(q) || i.detalle.toLowerCase().includes(q);
+    return subMatch && qMatch;
   });
-});
+  const title = currentIphoneSub === 'todos' ? 'iPhones' : 'iPhone ' + currentIphoneSub.replace('iphone ','').replace(/^\w/,c=>c.toUpperCase());
+  document.getElementById('iphonePageTitle').textContent = title;
+  document.getElementById('iphoneCount').textContent = items.length + ' producto' + (items.length!==1?'s':'');
+  const grid = document.getElementById('iphoneGrid');
+  grid.innerHTML = items.length ? items.map(cardHtml).join('') : '<div class="empty">No hay equipos disponibles.</div>';
+}
 
-// Sub-chip listeners are bound dynamically in renderSubFilters()
+document.getElementById('iphoneSearch').addEventListener('input', renderIphoneGrid);
 
-document.getElementById('searchInput').addEventListener('input', renderGrid);
+// ── ACCESORIOS PAGE ──
+function renderAccGrid() {
+  const q = document.getElementById('accSearch').value.trim().toLowerCase();
+  const items = catalog.filter(i => i.cat.toLowerCase().includes('accesorio') && (!q || i.nombre.toLowerCase().includes(q) || i.detalle.toLowerCase().includes(q)));
+  document.getElementById('accCount').textContent = items.length + ' producto' + (items.length!==1?'s':'');
+  const grid = document.getElementById('accGrid');
+  grid.innerHTML = items.length ? items.map(cardHtml).join('') : '<div class="empty">No hay accesorios disponibles.</div>';
+}
 
-// ── ADMIN MODAL ──
-let adminUnlocked = false;
+document.getElementById('accSearch').addEventListener('input', renderAccGrid);
 
-document.getElementById('openAdminBtn').addEventListener('click', () => {
+// ── ADMIN ──
+document.getElementById('openAdminBtn').onclick = () => {
   if (adminUnlocked) {
+    document.getElementById('sheetsUrl').value = localStorage.getItem(SHEET_URL_KEY)||'';
     renderAdminTable();
-    document.getElementById('sheetsUrl').value = localStorage.getItem(SHEET_URL_KEY) || '';
     document.getElementById('adminOverlay').classList.add('open');
   } else {
+    document.getElementById('passInput').value='';
+    document.getElementById('loginErr').style.display='none';
     document.getElementById('loginOverlay').classList.add('open');
-    setTimeout(() => document.getElementById('passInput').focus(), 100);
+    setTimeout(()=>document.getElementById('passInput').focus(),100);
   }
-});
-
-document.getElementById('closeLoginBtn').addEventListener('click', () => {
-  document.getElementById('loginOverlay').classList.remove('open');
-});
-document.getElementById('closeAdminBtn').addEventListener('click', () => {
-  document.getElementById('adminOverlay').classList.remove('open');
-});
-
-document.getElementById('passInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') document.getElementById('loginBtn').click();
-});
-
-document.getElementById('loginBtn').addEventListener('click', () => {
-  const val = document.getElementById('passInput').value;
-  if (val === ADMIN_PASS) {
+};
+document.getElementById('closeLoginBtn').onclick = ()=>document.getElementById('loginOverlay').classList.remove('open');
+document.getElementById('closeAdminBtn').onclick = ()=>document.getElementById('adminOverlay').classList.remove('open');
+document.getElementById('passInput').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('loginBtn').click()});
+document.getElementById('loginBtn').onclick = () => {
+  if (document.getElementById('passInput').value === ADMIN_PASS) {
     adminUnlocked = true;
     document.getElementById('loginOverlay').classList.remove('open');
-    document.getElementById('loginErr').style.display = 'none';
-    document.getElementById('sheetsUrl').value = localStorage.getItem(SHEET_URL_KEY) || '';
+    document.getElementById('sheetsUrl').value = localStorage.getItem(SHEET_URL_KEY)||'';
     renderAdminTable();
     document.getElementById('adminOverlay').classList.add('open');
   } else {
-    document.getElementById('loginErr').style.display = 'block';
+    document.getElementById('loginErr').style.display='block';
   }
+};
+
+['loginOverlay','adminOverlay'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('open')});
 });
 
-// Close overlays on bg click
-['loginOverlay','adminOverlay'].forEach(id => {
-  document.getElementById(id).addEventListener('click', e => {
-    if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
-  });
-});
-
-// ── MODAL TABS ──
-document.querySelectorAll('.modal-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.modal-panel').forEach(p => p.classList.remove('active'));
+document.querySelectorAll('.modal-tab').forEach(tab=>{
+  tab.onclick=()=>{
+    document.querySelectorAll('.modal-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.modal-panel').forEach(p=>p.classList.remove('active'));
     tab.classList.add('active');
-    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
-  });
+    document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
+  };
 });
 
-// ── GOOGLE SHEETS ──
-document.getElementById('saveSheetBtn').addEventListener('click', async () => {
-  const rawUrl = document.getElementById('sheetsUrl').value.trim();
-  const okEl  = document.getElementById('sheetOk');
-  const errEl = document.getElementById('sheetErr');
-  okEl.style.display = errEl.style.display = 'none';
-  if (!rawUrl) { errEl.textContent = 'Ingresá una URL.'; errEl.style.display = 'block'; return; }
-
-  const url = fixSheetsUrl(rawUrl); // ← auto-corregir URL
+// Sheets save
+document.getElementById('saveSheetBtn').onclick = async () => {
+  const raw = document.getElementById('sheetsUrl').value.trim();
+  const okEl=document.getElementById('sheetOk'), errEl=document.getElementById('sheetErr');
+  okEl.style.display=errEl.style.display='none';
+  if (!raw){errEl.textContent='Ingresá una URL.';errEl.style.display='block';return;}
+  const url = fixUrl(raw);
   try {
-    const r = await fetch(url + (url.includes('?') ? '&ts=' : '?ts=') + Date.now());
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const r = await fetch(url+'&ts='+Date.now());
+    if (!r.ok) throw new Error('HTTP '+r.status);
     const text = await r.text();
-    // Detectar si nos devolvieron HTML en lugar de CSV
-    if (text.trim().startsWith('<!') || text.trim().startsWith('<html')) {
-      throw new Error('La URL devuelve HTML, no CSV. Revisá los pasos de publicación.');
-    }
-    const parsed = parseCSV(text);
-    if (!parsed.length) throw new Error('Sin datos válidos');
-    localStorage.setItem(SHEET_URL_KEY, rawUrl); // guardar URL original
-    catalog = parsed;
-    saveCatalog();
-    renderSubFilters();
-    okEl.style.display = 'block';
-    setTimeout(() => {
-      document.getElementById('adminOverlay').classList.remove('open');
-      renderGrid();
-    }, 1200);
-  } catch (e) {
-    errEl.textContent = `No se pudo cargar la planilla. ${e.message || ''}. Verificá que esté publicada como CSV (Archivo → Compartir → Publicar en la web → CSV).`;
-    errEl.style.display = 'block';
+    if (text.trim().startsWith('<')) throw new Error('La URL devuelve HTML, no CSV.');
+    const p = parseCsv(text);
+    if (!p.length) throw new Error('No se encontraron datos.');
+    localStorage.setItem(SHEET_URL_KEY, raw);
+    catalog = p; saveCatalog(); afterLoad();
+    okEl.style.display='block';
+    setTimeout(()=>document.getElementById('adminOverlay').classList.remove('open'),1200);
+  } catch(e) {
+    errEl.textContent = 'Error: '+e.message+'. Verificá que la planilla esté publicada como CSV.';
+    errEl.style.display='block';
   }
-});
+};
 
-// ── MANUAL TABLE ──
+// Manual table
 function renderAdminTable() {
   const tbody = document.getElementById('adminTbody');
-  tbody.innerHTML = '';
-  catalog.forEach((item, i) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>
-        <input data-f="cat" value="${esc(item.cat)}" placeholder="ej: iPhone Tester">
-      </td>
-      <td><input data-f="nombre" value="${esc(item.nombre)}"></td>
-      <td><input data-f="detalle" value="${esc(item.detalle)}"></td>
-      <td><input data-f="estado" value="${esc(item.estado)}"></td>
-      <td><input data-f="precio" type="number" value="${item.precio}" min="0"></td>
-      <td>
-        <select data-f="stock">
-          <option value="true"${item.stock  ? ' selected' : ''}>Sí</option>
-          <option value="false"${!item.stock ? ' selected' : ''}>No</option>
-        </select>
-      </td>
-      <td><button class="del-btn" data-i="${i}">✕</button></td>
-    `;
+  tbody.innerHTML='';
+  catalog.forEach((item,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><input data-f="cat" value="${esc(item.cat)}" placeholder="iPhone Tester"></td><td><input data-f="nombre" value="${esc(item.nombre)}"></td><td><input data-f="detalle" value="${esc(item.detalle)}"></td><td><input data-f="estado" value="${esc(item.estado)}"></td><td><input data-f="precio" type="number" value="${item.precio}" min="0" style="width:70px"></td><td><select data-f="stock" style="background:#f9f9f9;border:1px solid var(--border);padding:6px;border-radius:6px;font-size:12px"><option value="true"${item.stock?' selected':''}>Sí</option><option value="false"${!item.stock?' selected':''}>No</option></select></td><td><button class="del-btn" data-i="${i}">✕</button></td>`;
     tbody.appendChild(tr);
   });
-  tbody.querySelectorAll('.del-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      catalog.splice(Number(btn.dataset.i), 1);
-      renderAdminTable();
-    });
+  tbody.querySelectorAll('.del-btn').forEach(btn=>{
+    btn.onclick=()=>{catalog.splice(Number(btn.dataset.i),1);renderAdminTable();};
   });
 }
 
-function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
-
-document.getElementById('addRowBtn').addEventListener('click', () => {
-  catalog.push({cat:'iPhone Sellado', nombre:'Nuevo producto', detalle:'', estado:'Nuevo', precio:0, stock:true});
+document.getElementById('addRowBtn').onclick=()=>{
+  catalog.push({cat:'iPhone Tester',nombre:'iPhone',detalle:'128GB',estado:'Excelente estado',precio:0,stock:true});
   renderAdminTable();
   document.getElementById('adminTbody').lastElementChild?.scrollIntoView({behavior:'smooth'});
-});
+};
 
-document.getElementById('saveManualBtn').addEventListener('click', () => {
-  const rows = document.querySelectorAll('#adminTbody tr');
-  const newCat = [];
-  rows.forEach(row => {
-    const g = f => row.querySelector(`[data-f="${f}"]`).value;
-    newCat.push({
-      cat:     g('cat'),
-      nombre:  g('nombre'),
-      detalle: g('detalle'),
-      estado:  g('estado'),
-      precio:  Number(g('precio')) || 0,
-      stock:   g('stock') === 'true'
-    });
+document.getElementById('saveManualBtn').onclick=()=>{
+  const rows=document.querySelectorAll('#adminTbody tr');
+  catalog=[];
+  rows.forEach(row=>{
+    const g=f=>row.querySelector(`[data-f="${f}"]`).value;
+    catalog.push({cat:g('cat'),nombre:g('nombre'),detalle:g('detalle'),estado:g('estado'),precio:Number(g('precio'))||0,stock:g('stock')==='true'});
   });
-  catalog = newCat;
-  saveCatalog();
-  renderSubFilters();
-  renderGrid();
-  const ok = document.getElementById('manualOk');
-  ok.style.display = 'block';
-  setTimeout(() => ok.style.display = 'none', 2000);
-});
+  saveCatalog(); afterLoad();
+  const ok=document.getElementById('manualOk');
+  ok.style.display='block'; setTimeout(()=>ok.style.display='none',2000);
+};
 
-// ── CSV PASTE ──
-document.getElementById('importCsvBtn').addEventListener('click', () => {
-  const raw = document.getElementById('csvInput').value.trim();
-  const ok  = document.getElementById('csvOk');
-  const err = document.getElementById('csvErr');
-  ok.style.display = err.style.display = 'none';
-  if (!raw) { err.textContent = 'Pegá datos primero.'; err.style.display = 'block'; return; }
-  const parsed = parseCSV(raw);
-  if (!parsed.length) { err.textContent = 'No se pudo interpretar el formato.'; err.style.display = 'block'; return; }
-  catalog = parsed;
-  saveCatalog();
-  renderSubFilters();
-  renderGrid();
-  renderAdminTable();
-  ok.style.display = 'block';
-  setTimeout(() => ok.style.display = 'none', 2000);
-});
+// CSV import
+document.getElementById('importCsvBtn').onclick=()=>{
+  const raw=document.getElementById('csvInput').value.trim();
+  const ok=document.getElementById('csvOk'),err=document.getElementById('csvErr');
+  ok.style.display=err.style.display='none';
+  if(!raw){err.textContent='Pegá datos primero.';err.style.display='block';return;}
+  const p=parseCsv(raw);
+  if(!p.length){err.textContent='No se pudo leer el formato.';err.style.display='block';return;}
+  catalog=p; saveCatalog(); afterLoad(); renderAdminTable();
+  ok.style.display='block'; setTimeout(()=>ok.style.display='none',2000);
+};
 
 // ── INIT ──
 async function init() {
   await fetchDolar();
-  renderDolar();
   await loadCatalog();
-  // Refresh dólar every 30 min
-  setInterval(async () => { await fetchDolar(); renderDolar(); renderGrid(); }, 30 * 60 * 1000);
+  setInterval(async()=>{await fetchDolar();renderCarousel();renderIphoneGrid();renderAccGrid();},30*60*1000);
 }
-
 init();
 </script>
 </body>
