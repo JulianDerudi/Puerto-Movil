@@ -42,35 +42,27 @@ a{color:inherit;text-decoration:none}
 }
 
 /* Logo CSS */
-.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.logo-mark{
-  width:36px;height:36px;border-radius:50%;
-  background:var(--y);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-}
-.logo-mark svg{width:20px;height:20px}
-.logo-wordmark{line-height:1;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;letter-spacing:-0.3px}
-.logo-wordmark span:first-child{color:var(--wh)}
-.logo-wordmark span:last-child{color:var(--y)}
-.logo-tag{font-size:9px;color:#888;text-transform:uppercase;letter-spacing:1.5px;margin-top:1px;font-family:'Inter'}
+.logo{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.logo-img{display:block;width:clamp(140px,18vw,220px);max-width:240px;height:auto}
+.logo-mark{display:none}
+.logo-tag{font-size:11px;color:#bbb;text-transform:uppercase;letter-spacing:1.5px;font-family:'Inter'}
 
 /* Nav */
-.nav{display:flex;align-items:center;gap:4px;flex:1;padding-left:32px}
+.nav{display:flex;align-items:center;gap:8px;flex:1;padding-left:32px;justify-content:flex-end}
 .nav-btn{
   background:none;border:none;color:#aaa;
   font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;
   letter-spacing:0.5px;text-transform:uppercase;
-  padding:8px 14px;border-radius:6px;
+  padding:10px 14px;border-radius:6px;
   transition:.15s;position:relative;
-  display:flex;align-items:center;gap:5px;
+  display:flex;align-items:center;gap:6px;
 }
 .nav-btn:hover,.nav-btn.active{color:var(--wh);background:rgba(255,255,255,0.08)}
 .nav-btn.active::after{
   content:'';position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);
   width:28px;height:3px;background:var(--y);border-radius:2px;
 }
-.nav-arr{font-size:10px;opacity:.6}
+.nav-arr{font-size:10px;opacity:.7}
 
 /* Dropdown */
 .dropdown-wrap{position:relative}
@@ -154,13 +146,14 @@ a{color:inherit;text-decoration:none}
 
 /* Phone illustration */
 .hero-visual{display:flex;align-items:center;justify-content:center}
-.phone-svg-wrap{position:relative}
+.hero-visual img{width:100%;max-width:540px;border-radius:32px;box-shadow:0 40px 90px rgba(0,0,0,0.35);object-fit:cover}
+.phone-svg-wrap{position:relative;max-width:560px;width:100%}
 .hero-badge-float{
-  position:absolute;top:20px;right:-20px;
+  position:absolute;top:22px;right:-6px;
   background:var(--y);color:var(--bk);
   font-family:'Barlow Condensed';font-weight:800;font-size:13px;text-transform:uppercase;
-  padding:6px 12px;border-radius:6px;letter-spacing:1px;
-  transform:rotate(3deg);
+  padding:8px 14px;border-radius:10px;letter-spacing:1px;
+  transform:rotate(1deg);
 }
 
 /* Section header */
@@ -174,7 +167,7 @@ a{color:inherit;text-decoration:none}
 .sec-sub{font-size:14px;color:var(--sub);margin-top:4px}
 
 /* Carousel */
-.carousel-wrap{padding:0 0 56px;position:relative}
+.carousel-wrap{padding:0 0 80px;position:relative}
 .carousel-track-outer{overflow:hidden;padding:8px 24px 12px}
 .carousel-track{
   display:flex;gap:16px;
@@ -187,13 +180,16 @@ a{color:inherit;text-decoration:none}
   flex:0 0 240px;scroll-snap-align:start;
 }
 .carousel-controls{
-  max-width:1200px;margin:0 auto;padding:0 24px;
-  display:flex;gap:10px;
+  position:absolute;top:50%;left:0;right:0;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 12px;transform:translateY(-50%);
+  pointer-events:none;
 }
+.carousel-controls .carousel-btn{pointer-events:all}
 .carousel-btn{
-  width:40px;height:40px;border-radius:50%;
+  width:44px;height:44px;border-radius:50%;
   background:var(--wh);border:1.5px solid var(--border);color:var(--bk);
-  font-size:16px;display:flex;align-items:center;justify-content:center;
+  font-size:18px;display:flex;align-items:center;justify-content:center;
   transition:.15s;
 }
 .carousel-btn:hover{background:var(--y);border-color:var(--y)}
@@ -287,15 +283,28 @@ a{color:inherit;text-decoration:none}
 @keyframes shimmer{0%{background:var(--card)}50%{background:#ececec}100%{background:var(--card)}}
 
 /* ─── WHY SECTION ─── */
-.why-section{background:var(--bk);padding:64px 24px}
+.why-section{background:#111;padding:64px 24px}
 .why-inner{max-width:1200px;margin:0 auto}
 .why-title{font-family:'Barlow Condensed';font-weight:900;font-size:36px;color:var(--wh);margin-bottom:36px}
 .why-title span{color:var(--y)}
-.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}
-.why-item{border-left:3px solid var(--y);padding:0 0 0 18px}
-.why-icon{font-size:24px;margin-bottom:10px}
-.why-item-title{font-family:'Barlow Condensed';font-weight:800;font-size:20px;color:var(--wh);margin-bottom:4px}
-.why-item-sub{font-size:13px;color:#777;line-height:1.5}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.why-card{background:#141414;border:1px solid #222;border-radius:24px;padding:28px;display:flex;gap:18px;align-items:flex-start;min-height:180px}
+.why-card-icon{width:50px;height:50px;border-radius:16px;background:rgba(255,214,0,0.12);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--y);flex-shrink:0}
+.why-card-content{}
+.why-card-title{font-family:'Barlow Condensed';font-weight:900;font-size:20px;color:var(--wh);margin-bottom:8px}
+.why-card-sub{font-size:14px;color:#bbb;line-height:1.7}
+
+/* Gift section */
+.gift-section{padding:0 24px 84px;background:var(--bg)}
+.gift-inner{max-width:1200px;margin:0 auto;background:#111;color:#fff;border-radius:28px;overflow:hidden;display:grid;grid-template-columns:1.1fr minmax(320px,1fr);gap:24px;align-items:center}
+.gift-copy{padding:48px;display:flex;flex-direction:column;gap:16px}
+.gift-eyebrow{font-family:'Barlow Condensed';font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--y)}
+.gift-title{font-family:'Barlow Condensed';font-weight:900;font-size:38px;line-height:1.04;max-width:540px}
+.gift-text{font-size:15px;color:#ccc;line-height:1.8;max-width:520px}
+.gift-btn{width:min(240px,100%);background:var(--y);color:var(--bk);border:none;padding:15px 22px;border-radius:12px;font-family:'Barlow Condensed';font-weight:800;font-size:15px;letter-spacing:0.5px;text-transform:uppercase;transition:.15s}
+.gift-btn:hover{background:var(--yd)}
+.gift-visual{background:#0d0d0d;padding:26px;display:flex;align-items:center;justify-content:center}
+.gift-visual img{width:100%;height:auto;border-radius:22px;box-shadow:0 30px 70px rgba(0,0,0,0.35)}
 
 /* ─── FOOTER ─── */
 .footer{background:var(--bk);border-top:1px solid #222;padding:32px 24px}
@@ -369,9 +378,11 @@ a{color:inherit;text-decoration:none}
   .hero-inner{grid-template-columns:1fr;text-align:center}
   .hero-visual{display:none}
   .hero-sub{margin:18px auto 28px}
-  .why-grid{grid-template-columns:1fr 1fr}
-  .nav-text{display:none}
+  .why-grid{grid-template-columns:1fr}
+  .nav-btn[data-page="home"]{display:none}
   .dolar-label{display:none}
+  .gift-inner{grid-template-columns:1fr}
+  .gift-visual{display:none}
 }
 @media(max-width:500px){
   .header-inner{padding:0 16px}
@@ -391,23 +402,15 @@ a{color:inherit;text-decoration:none}
   <div class="header-inner">
     <!-- Logo -->
     <div class="logo">
-      <!-- Si tenés el archivo de logo, reemplazá esto con: <img src="logo.png" alt="Puerto Móvil" height="36"> -->
-      <div class="logo-mark">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 11.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 .82h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
-      </div>
-      <div>
-        <div class="logo-wordmark"><span>Puerto</span><span>Movil</span></div>
-        <div class="logo-tag">Tu celular de confianza</div>
-      </div>
+      <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80" alt="Puerto Movil" class="logo-img">
+      <div class="logo-tag">Tu celular de confianza</div>
     </div>
 
     <!-- Nav -->
     <nav class="nav">
       <button class="nav-btn active" data-page="home" onclick="goPage('home')">Inicio</button>
       <div class="dropdown-wrap" id="iphoneDropdown">
-        <button class="nav-btn" data-page="iphone" onclick="goPage('iphone','todos')">
-          <span class="nav-text">iPhone</span> <span class="nav-arr">▾</span>
-        </button>
+        <button class="nav-btn" data-page="iphone" onclick="goPage('iphone','todos')">iPhone v</button>
         <div class="dropdown-menu" id="iphoneMenu">
           <button class="dd-item all" onclick="goPage('iphone','todos')">Todos los iPhones</button>
           <!-- Se llena dinámicamente -->
@@ -436,7 +439,7 @@ a{color:inherit;text-decoration:none}
       <div>
         <p class="hero-eyebrow">✦ Precios actualizados hoy</p>
         <h1>Tu próximo<br><em>iPhone</em><br>te espera.</h1>
-        <p class="hero-sub">iPhones sellados y semi nuevos al mejor precio. Accesorios originales y réplicas. Enviamos a todo el país.</p>
+        <p class="hero-sub">iPhones sellados y semi nuevos al mejor precio. Enviamos a todo el país con garantía y atención directa.</p>
         <button class="hero-cta" onclick="goPage('iphone','todos')">
           Ver modelos
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -444,33 +447,8 @@ a{color:inherit;text-decoration:none}
       </div>
       <div class="hero-visual">
         <div class="phone-svg-wrap">
-          <!-- iPhone silhouette SVG -->
-          <svg width="200" height="380" viewBox="0 0 200 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="10" y="10" width="180" height="360" rx="32" fill="#1a1a1a" stroke="#333" stroke-width="2"/>
-            <rect x="24" y="36" width="152" height="298" rx="6" fill="#FFD600" opacity="0.07"/>
-            <rect x="24" y="36" width="152" height="298" rx="6" fill="url(#screenGrad)"/>
-            <defs><linearGradient id="screenGrad" x1="24" y1="36" x2="176" y2="334" gradientUnits="userSpaceOnUse"><stop stop-color="#222"/><stop offset="1" stop-color="#111"/></linearGradient></defs>
-            <!-- Dynamic island -->
-            <rect x="74" y="20" width="52" height="16" rx="8" fill="#0D0D0D"/>
-            <!-- Home indicator -->
-            <rect x="76" y="350" width="48" height="4" rx="2" fill="#333"/>
-            <!-- Camera dot -->
-            <circle cx="105" cy="28" r="4" fill="#333"/>
-            <!-- Screen content hint -->
-            <rect x="34" y="60" width="132" height="8" rx="3" fill="#FFD600" opacity="0.4"/>
-            <rect x="34" y="76" width="90" height="6" rx="3" fill="#444"/>
-            <rect x="34" y="100" width="132" height="60" rx="6" fill="#1e1e1e"/>
-            <rect x="44" y="112" width="50" height="6" rx="2" fill="#FFD600" opacity="0.7"/>
-            <rect x="44" y="124" width="80" height="5" rx="2" fill="#444"/>
-            <rect x="44" y="136" width="40" height="14" rx="3" fill="#25D366"/>
-            <rect x="34" y="172" width="60" height="70" rx="6" fill="#1e1e1e"/>
-            <rect x="104" y="172" width="62" height="70" rx="6" fill="#1e1e1e"/>
-            <rect x="44" y="184" width="38" height="5" rx="2" fill="#FFD600" opacity="0.5"/>
-            <rect x="44" y="196" width="30" height="14" rx="2" fill="#444"/>
-            <rect x="114" y="184" width="38" height="5" rx="2" fill="#FFD600" opacity="0.5"/>
-            <rect x="114" y="196" width="30" height="14" rx="2" fill="#444"/>
-          </svg>
-          <div class="hero-badge-float">Sellado 📦</div>
+          <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=80" alt="iPhone vendido por Puerto Movil">
+          <div class="hero-badge-float">Sellado</div>
         </div>
       </div>
     </div>
@@ -507,26 +485,41 @@ a{color:inherit;text-decoration:none}
     <div class="why-inner">
       <div class="why-title">¿Por qué <span>Puerto Móvil</span>?</div>
       <div class="why-grid">
-        <div class="why-item">
-          <div class="why-icon">✅</div>
-          <div class="why-item-title">Garantía real</div>
-          <div class="why-item-sub">Todos los equipos revisados y con garantía de funcionamiento.</div>
+        <div class="why-card">
+          <div class="why-card-icon">✅</div>
+          <div class="why-card-content">
+            <div class="why-card-title">1 año de garantía</div>
+            <div class="why-card-sub">Todos los equipos cuentan con garantía de funcionamiento comprobada.</div>
+          </div>
         </div>
-        <div class="why-item">
-          <div class="why-icon">💸</div>
-          <div class="why-item-title">Precio dólar blue</div>
-          <div class="why-item-sub">Precios en dólares, cotización blue. Siempre actualizados.</div>
+        <div class="why-card">
+          <div class="why-card-icon">📍</div>
+          <div class="why-card-content">
+            <div class="why-card-title">Oficina en Quilmes Centro</div>
+            <div class="why-card-sub">Retirá tu compra o hacé consultas personalmente en nuestro punto comercial.</div>
+          </div>
         </div>
-        <div class="why-item">
-          <div class="why-icon">📦</div>
-          <div class="why-item-title">Sellados y semi nuevos</div>
-          <div class="why-item-sub">iPhone original sellado o en excelente estado.</div>
+        <div class="why-card">
+          <div class="why-card-icon">🎁</div>
+          <div class="why-card-content">
+            <div class="why-card-title">Funda + cargador + templado</div>
+            <div class="why-card-sub">Con cada iPhone llevate funda, cargador y vidrio templado de regalo.</div>
+          </div>
         </div>
-        <div class="why-item">
-          <div class="why-icon">📲</div>
-          <div class="why-item-title">Atención por WhatsApp</div>
-          <div class="why-item-sub">Respondemos rápido. Contacto directo, sin intermediarios.</div>
-        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gift-section">
+    <div class="gift-inner">
+      <div class="gift-copy">
+        <div class="gift-eyebrow">DE REGALO</div>
+        <div class="gift-title">Más que un iPhone, una experiencia completa.</div>
+        <div class="gift-text">Comprá tu celular y llevate todos los accesorios esenciales de regalo: funda, cargador y templado para empezar a usar tu equipo con total protección.</div>
+        <button class="gift-btn" onclick="goPage('iphone','todos')">Ver modelos</button>
+      </div>
+      <div class="gift-visual">
+        <img src="https://images.unsplash.com/photo-1512499617640-c2f999018b72?auto=format&fit=crop&w=900&q=80" alt="Equipo con funda y cargador de regalo">
       </div>
     </div>
   </div>
