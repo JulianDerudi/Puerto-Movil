@@ -47,7 +47,7 @@
   }
 
   function whatsappLink(productName) {
-    var msg = "¡Hola! Estoy interesado en " + productName;
+    var msg = "¡Hola! Me interesa el producto: " + productName + " de Puerto Móvil. ¿Podés darme más info?";
     return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
   }
 
