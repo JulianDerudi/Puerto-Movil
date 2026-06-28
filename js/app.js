@@ -9,7 +9,7 @@
   /* ----------------------- Configuración ----------------------- */
   var SHEET_CSV_URL =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vT0jamwWtdX65SQOQrj9Bi1a2h3geYAKmbCW2YSUEcnLkPPGGMGnqZPSNbor-kJX2-w8RQx8onvDRRY/pub?gid=0&single=true&output=csv";
-  var WHATSAPP_NUMBER = "5491169724846"; // +54 9 11 6972-4846
+  var WHATSAPP_NUMBER = "5491162736980"; // +54 9 11 6273-6980
   var LOGO = "img/logo-puertomovil.png";
 
   var CATEGORY = {
